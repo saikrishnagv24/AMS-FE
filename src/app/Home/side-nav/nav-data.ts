@@ -1,13 +1,24 @@
-export const navbarData=[
+export const navbarData=
+   
+[
     {
+        id:1,
         routeLink:"Dashboard",
         icon:'fal fa-home',
         label:'Dashboard'
     },
     {
+        id:2,
         routeLink:"AssetGrid",
         icon:'fal fa-laptop',
-        label:'Dashboard'
-    }
+        label:'Asset'
+    },
+    // {
+    //     id:3,
+    //     routeLink:"AssetGrid",
+    //     icon:"fa-regular fa-gear",
+    //     label:'Setting'
+       
+    // }
 
 ];

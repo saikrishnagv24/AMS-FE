@@ -1,6 +1,7 @@
 import { outputAst } from '@angular/compiler';
 import { Component, EventEmitter, HostListener, OnInit,Output } from '@angular/core';
 import { navbarData } from './nav-data';
+import {MenuItem} from 'primeng/api';
 
 interface sideNavToggle{
   screenWidth:number;
@@ -18,6 +19,8 @@ export class SideNavComponent implements OnInit {
   collapsed = false;
   screenWidth =0;
   navData = navbarData;
+  showSetting: boolean = false;
+  items!: MenuItem[];
  
   constructor() { }
   // onResize(event: any){
@@ -30,6 +33,12 @@ export class SideNavComponent implements OnInit {
   ngOnInit(): void {
     console.log("navData",this.navData);
     this.screenWidth= window.innerWidth;
+
+    this.items = [
+      {
+          label:'File',
+          icon:'pi pi-fw pi-file'
+      }]
   }
 
   togglecollapse(){
@@ -40,5 +49,13 @@ export class SideNavComponent implements OnInit {
     this.collapsed =false;
     this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth : this.screenWidth})
   }
+
+  // Setting(id : any){
+  //   console.log("id",id)
+  //   if(id=='3'){
+  //   this.showSetting =true
+  //   }
+  // }
+
 
 }

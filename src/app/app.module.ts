@@ -37,6 +37,10 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { MenubarModule } from 'primeng/menubar';
+import { HeaderComponent } from './header/header.component';
+import { AssetTypeComponent } from './Assets/asset-type/asset-type.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +50,9 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     SideNavComponent,
     BodyComponent,
     DashboardComponent,
-    AssetsGridComponent
+    AssetsGridComponent,
+    HeaderComponent,
+    AssetTypeComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +81,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     RadioButtonModule,
     InputNumberModule,
     ConfirmDialogModule,
-    InputTextareaModule
+    InputTextareaModule,
+    MenubarModule
   ],
   providers: [ConfirmationService,MessageService],
   bootstrap: [AppComponent]

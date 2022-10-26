@@ -1,0 +1,14 @@
+<p-card header="Login" [style]="{'width': '25rem', 'margin-bottom': '2em'}">
+    <div [formGroup]="Loginform">
+        <div>
+            <label>User Name</label>
+            <input type="text" pInputText formControlName="name">
+        </div>
+        <div>
+            <label>Password</label>
+            <input type="password" pInputText formControlName="password">
+        </div>
+      </div>
+      <a routerLink="/RegisterForm">Click here to create an account</a>
+      <button pButton pRipple type="button" label="Login" (click)="onLogin()"></button>
+</p-card>

@@ -1,0 +1,27 @@
+<p-card header="Register From" [style]="{'width': '25rem', 'margin-bottom': '2em'}">
+    <div [formGroup]="RegisterForm">
+        <div>
+            <label>Name</label>
+            <input type="text" pInputText formControlName="name">
+        </div>
+        <div>
+            <label>PhoneNumber</label>
+            <input type="text" pInputText formControlName="phoneName">
+        </div>
+        <div>
+            <label>Email</label>
+            <input type="text" pInputText formControlName="email">
+        </div>
+        <div>
+            <label>Password</label>
+            <input type="password" pInputText formControlName="password">
+        </div>
+        <div>
+            <label>Confirm Password</label>
+            <input type="password" pInputText formControlName="confirmPassword">
+        </div>
+      </div>
+
+      <button pButton pRipple type="button" label="Clear" class="p-button-secondary"></button>
+      <button pButton pRipple type="button" label="Submit" (click)="Submit()" [disabled]="!RegisterForm.valid"></button>
+</p-card>

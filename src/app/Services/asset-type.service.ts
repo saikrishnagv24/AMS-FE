@@ -17,14 +17,18 @@ export class AssetTypeService {
       headers:new HttpHeaders({
         "content-type":"application/json"
       })
-    });
-  
-  // AssetTypeGet(){
-
-    
-  // }
-
+    });  
   }
+    
+  
+  // GetAssetType()
+  //   {
+  //     return this.httpClient.get<any>(this.Apiurl+'/AssetType/GetAssetType',{
+  //       headers:new HttpHeaders({
+  //         "content-type":"application/json"
+  //       })
+  //     })
+  //   }
+  
 }
-
 

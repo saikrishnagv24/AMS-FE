@@ -40,6 +40,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MenubarModule } from 'primeng/menubar';
 import { HeaderComponent } from './header/header.component';
 import { AssetTypeComponent } from './Assets/asset-type/asset-type.component';
+import { CpuTypeComponent } from './cpu-type/cpu-type.component';
+import { RamTypeComponent } from './ram-type/ram-type.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,9 @@ import { AssetTypeComponent } from './Assets/asset-type/asset-type.component';
     DashboardComponent,
     AssetsGridComponent,
     HeaderComponent,
-    AssetTypeComponent
+    AssetTypeComponent,
+    CpuTypeComponent,
+    RamTypeComponent
   ],
   imports: [
     BrowserModule,

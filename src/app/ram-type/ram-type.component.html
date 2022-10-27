@@ -1,0 +1,93 @@
+<p-toast></p-toast>
+<p-toolbar styleClass="p-mb-4">
+    <ng-template pTemplate="left">
+        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
+    </ng-template>
+
+    <ng-template pTemplate="right">
+         <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
+    </ng-template>
+</p-toolbar>
+<div class="card">
+    <p-table
+      #dt
+      [value]="RamTypeList"
+      [rows]="10"
+      [paginator]="true"
+      [rowHover]="true"
+      [globalFilterFields]="[
+      RamTypeList
+        ]"
+      dataKey="id"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [showCurrentPageReport]="true"
+    >
+    <ng-template pTemplate="caption">
+        <div class="p-d-flex p-ai-center p-jc-between">
+          <h3 class="p-m-0">Ram Types</h3>
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input
+              pInputText
+              type="text"
+              (input)="dt.filterGlobal($event.target, 'contains')"
+              placeholder="Search..."
+            />
+          </span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th [hidden]="true" field="id">Id</th>
+          <th pSortableColumn="ramTypeName">
+            Ram Type <p-sortIcon field="ramTypeName"></p-sortIcon>
+          </th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-product>
+        <tr>
+          <td>{{ product.ramTypeName }}</td>
+          <td>
+            <button
+              pButton
+              pRipple
+              icon="pi pi-pencil"
+              class="p-button-rounded p-button-success p-mr-2"
+              (click)="EditRamType(product.id)"
+            ></button>
+            <button
+              pButton
+              pRipple
+              icon="pi pi-trash"
+              class="p-button-rounded p-button-warning"
+              (click)="DeleteRamType(product.id)"
+            ></button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+        <div class="p-d-flex p-ai-center p-jc-between">
+          In total there are {{ RamTypeList ? RamTypeList.length : 0 }} Asset Types.
+        </div>
+      </ng-template>
+    </p-table>
+  </div>
+  
+
+<p-dialog header="Add Ram Type" [(visible)]="ramDialog" [style]="{width: '50vw'}" [baseZIndex]="10000">
+    <ng-template pTemplate="content">
+    <form [formGroup]="ramTypeForm">     
+            <input type="text" pInputText id="Id" [hidden]="true" formControlName="Id"  autofocus />       
+            <div class="p-field">
+                <label for="cputype">Ram Type</label>
+                <input type="text" pInputText id="ramtype" formControlName="RamTypeName"  required autofocus />
+            </div>
+    </form>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <p-button  icon="pi pi-times" (click)="hideDialog()" label="Cancel" styleClass="p-button-danger"></p-button>
+        <p-button  icon="pi pi-check"  (click)="saveRam()" label="Save" styleClass="p-button-success" [disabled]="!ramTypeForm.valid"></p-button>
+    </ng-template>
+</p-dialog>
+

@@ -37,11 +37,13 @@ export class HeaderComponent implements OnInit {
                 {
                   label:'CPU type',
                   icon:'',
+                  routerLink:'CpuType'
                   
                 },
                 {
                   label:'Ram Type',
                   icon:'',
+                  routerLink:'RamType'
                
                  },
                  {

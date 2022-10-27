@@ -41,6 +41,8 @@ import { MenubarModule } from 'primeng/menubar';
 import { HeaderComponent } from './header/header.component';
 import { AssetTypeComponent } from './Assets/asset-type/asset-type.component';
 import { HarddiscTypeComponent } from './harddisc-type/harddisc-type.component';
+import { CpuTypeComponent } from './cpu-type/cpu-type.component';
+import { RamTypeComponent } from './ram-type/ram-type.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import { HarddiscTypeComponent } from './harddisc-type/harddisc-type.component';
     AssetsGridComponent,
     HeaderComponent,
     AssetTypeComponent,
-    HarddiscTypeComponent
+    HarddiscTypeComponent,
+    CpuTypeComponent,
+    RamTypeComponent
   ],
   imports: [
     BrowserModule,

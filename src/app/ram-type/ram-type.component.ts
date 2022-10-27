@@ -59,6 +59,7 @@ export class RamTypeComponent implements OnInit {
       this.RamTypeService.RamTypePost(this.ramTypeForm.value).subscribe(res=>{  
       });
       this.ramDialog = false; 
+  
     }      
    }
     else{
@@ -72,8 +73,6 @@ export class RamTypeComponent implements OnInit {
     this.ramDialog = false; 
    }
     }
-    this.ramTypeForm.reset();
-  }
   
   getRamType(){
     this.RamTypeService.GetRamType().subscribe((res)=>{ 
@@ -104,6 +103,7 @@ export class RamTypeComponent implements OnInit {
   
   }
   
+<<<<<<< HEAD
   DeleteRamType(id : number,cpuTypeName : any){
     this.displayDeleteConfirmation=true;
     console.log("Deleteid",id);
@@ -135,4 +135,15 @@ export class RamTypeComponent implements OnInit {
       this.displayDeleteConfirmation = false;
     }
   
+=======
+  DeleteRamType(id : number){
+  console.log("Deleteid",id);
+  if(id!=0){
+      this.RamTypeService.DeleteRamType(id).subscribe((res)=>{ 
+       console.log("this.RamTypeList",this.RamTypeListTemp);
+        });
+  }
+  
+  }
+>>>>>>> 945b229 (ram-type and cpu-type cm1)
 }

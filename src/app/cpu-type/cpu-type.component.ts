@@ -31,6 +31,10 @@ export class CpuTypeComponent implements OnInit {
   CpuTypeEditTemp:any;
 
   constructor(public formBuilder: FormBuilder,public CpuTypeService:CpuTypeService,public messageService:MessageService ) { }
+  CpuTypeList:any;
+  CpuTypeListTemp:any;
+  CpuTypeEdit:any;
+  CpuTypeEditTemp:any;
 
   ngOnInit(): void {
 
@@ -70,8 +74,10 @@ saveCpu(){
     });
 
   } 
-  this.cpuDialog = false;       
- }
+  this.cpuDialog = false;
+
+  }      
+ 
   else{
   if(this.cpuTypeForm.valid){
   this.CpuTypeService.EditCpuType(this.cpuTypeForm.value).subscribe((res)=>{ 
@@ -84,6 +90,11 @@ saveCpu(){
  }
   }
   this.cpuTypeForm.reset();
+    console.log("this.CpuTypeList",this.CpuTypeListTemp);
+  });
+ }
+  }
+
 }
 
 getCpuType(){
@@ -115,6 +126,7 @@ EditCpuType(id : any,){
 
 }
 
+<<<<<<< HEAD
 DeleteCpuType(id : number,cpuTypeName : any){
   this.displayDeleteConfirmation=true;
   console.log("Deleteid",id);
@@ -145,5 +157,16 @@ DeleteCpuType(id : number,cpuTypeName : any){
     console.log(this.DeleteId);
     this.displayDeleteConfirmation = false;
   }
+=======
+DeleteCpuType(id : number){
+console.log("Deleteid",id);
+if(id!=0){
+    this.CpuTypeService.DeleteCpuType(id).subscribe((res)=>{ 
+     console.log("this.CpuTypeList",this.CpuTypeListTemp);
+      });
+}
+
+}
+>>>>>>> 945b229 (ram-type and cpu-type cm1)
 
 }

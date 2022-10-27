@@ -1,0 +1,96 @@
+<p-toast></p-toast>
+<p-toolbar styleClass="p-mb-4">
+    <ng-template pTemplate="left">
+        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
+    </ng-template>
+
+    <ng-template pTemplate="right">
+         <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
+    </ng-template>
+</p-toolbar>
+
+
+
+
+<div class="card">
+    <p-table
+      #dt
+      [value]="HarddiscTypeList"
+      [rows]="10"
+      [paginator]="true"
+      [rowHover]="true"
+      [globalFilterFields]="[
+      HarddiscTypeList
+        ]"
+      dataKey="id"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [showCurrentPageReport]="true"
+    >
+    <ng-template pTemplate="caption">
+        <div class="p-d-flex p-ai-center p-jc-between">
+          <h5 class="p-m-0">Harddisc Types</h5>
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input
+              pInputText
+              type="text"
+              (input)="dt.filterGlobal($event.target, 'contains')"
+              placeholder="Search..."
+            />
+          </span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th [hidden]="true" field="id">Id</th>
+          <th pSortableColumn="harddiscTypeName">
+            Harddisc Type <p-sortIcon field="harddiscTypeName"></p-sortIcon>
+          </th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-product>
+        <tr>
+          <td>{{ product.harddiscTypeName }}</td>
+          <td>
+            <button
+              pButton
+              pRipple
+              icon="pi pi-pencil"
+              class="p-button-rounded p-button-success p-mr-2"
+              (click)="EditHarddiscType(product.id)"
+            ></button>
+            <button
+              pButton
+              pRipple
+              icon="pi pi-trash"
+              class="p-button-rounded p-button-warning"
+              (click)="DeleteHarddiscType(product.id)"
+            ></button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+        <div class="p-d-flex p-ai-center p-jc-between">
+          In total there are {{ HarddiscTypeList ? HarddiscTypeList.length : 0 }} Harddisc Types.
+        </div>
+      </ng-template>
+    </p-table>
+  </div>
+  
+  <p-dialog header="Add Harddisc Type" [(visible)]="harddiscDialog" [style]="{width: '50vw'}" [baseZIndex]="10000">
+    <ng-template pTemplate="content">
+    <form [formGroup]="harddiscTypeForm">     
+            <input type="text" pInputText id="harddisctype" [hidden]="true" formControlName="Id"  autofocus />       
+            <div class="p-field">
+                <label for="harddisctype">Harddisc Type</label>
+                <input type="text" pInputText id="harddisctype" formControlName="HarddiscTypeName"  required autofocus />
+            </div>
+    </form>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <p-button  icon="pi pi-times" (click)="hideDialog()" label="Cancel" styleClass="p-button-danger"></p-button>
+        <p-button  icon="pi pi-check" (click)="saveHarddisc()" label="Save" styleClass="p-button-success" [disabled]="!harddiscTypeForm.valid"></p-button>
+    </ng-template>
+</p-dialog>
+

@@ -99,11 +99,6 @@ EditAssetType(id : any,){
   console.log("this.AssetTypeEditTemp",this.AssetTypeEdit)
   this.assetTypeForm.get("Id")?.patchValue(this.AssetTypeEdit.id);
   this.assetTypeForm.get("AssetTypeName")?.patchValue(this.AssetTypeEdit.assetTypeName);},500)
-
-  
-
-
-
 }
 
 DelteAssetType(id : number){

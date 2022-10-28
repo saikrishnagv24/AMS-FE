@@ -1,0 +1,78 @@
+<p-toast></p-toast>
+<p-toolbar styleClass="p-mb-4">
+    <ng-template pTemplate="left">
+        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
+    </ng-template>
+
+    <ng-template pTemplate="right">
+         <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
+    </ng-template>
+</p-toolbar>
+
+<div class="card">
+    <p-table
+      #dt
+      [value]="EmployeeDetailsList"
+      [rows]="10"
+      [paginator]="true"
+      [rowHover]="true"
+      [globalFilterFields]="[
+      EmployeeDetailsList
+        ]"
+      dataKey="id"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [showCurrentPageReport]="true"
+    >
+    <ng-template pTemplate="caption">
+        <div class="p-d-flex p-ai-center p-jc-between">
+          <h5 class="p-m-0">Employee Details</h5>
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input
+              pInputText
+              type="text"
+              (input)="dt.filterGlobal($event.target, 'contains')"
+              placeholder="Search..."
+            />
+          </span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th [hidden]="true" field="id">Employee Id</th>
+          <th pSortableColumn="assetTypeName">Employee Name <p-sortIcon field="assetTypeName"></p-sortIcon>
+          <th pSortableColumn="assetTypeName">Contact Number<p-sortIcon field="assetTypeName"></p-sortIcon>
+          <th pSortableColumn="assetTypeName">Location <p-sortIcon field="assetTypeName"></p-sortIcon>
+          <th pSortableColumn="assetTypeName">Department <p-sortIcon field="assetTypeName"></p-sortIcon> 
+        </th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <!-- <ng-template pTemplate="body" let-product>
+        <tr>
+          <td>{{ product.assetTypeName }}</td>
+          <td>
+            <button
+              pButton
+              pRipple
+              icon="pi pi-pencil"
+              class="p-button-rounded p-button-success p-mr-2"
+              (click)="EditAssetType(product.id)"
+            ></button>
+            <button
+              pButton
+              pRipple
+              icon="pi pi-trash"
+              class="p-button-rounded p-button-warning"
+              (click)="DelteAssetType(product.id,product.assetTypeName)"
+            ></button>
+          </td>
+        </tr>
+      </ng-template> -->
+      <ng-template pTemplate="summary">
+        <div class="p-d-flex p-ai-center p-jc-between">
+          In total there are {{ EmployeeDetailsList ? EmployeeDetailsList.length : 0 }} Asset Types.
+        </div>
+      </ng-template>
+    </p-table>
+  </div>

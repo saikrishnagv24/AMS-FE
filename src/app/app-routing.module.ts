@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AssetTypeComponent } from './Assets/asset-type/asset-type.component';
 import { CpuTypeComponent } from './cpu-type/cpu-type.component';
+import { EmployeeComponent } from './employee/employee.component';
+import { DepartmentComponent } from './department/department.component';
 import { HarddiscTypeComponent } from './harddisc-type/harddisc-type.component';
 import { AssetsGridComponent } from './Home/assets-grid/assets-grid.component';
 import { DashboardComponent } from './Home/dashboard/dashboard.component';
@@ -37,6 +39,10 @@ const routes: Routes = [
   {
     path : 'HarddiscType',
     component : HarddiscTypeComponent
+  },
+  {
+    path: 'Employee',
+    component:EmployeeComponent
   }
  ]
   }

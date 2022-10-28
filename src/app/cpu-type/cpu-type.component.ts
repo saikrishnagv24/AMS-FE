@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { CpuTypeService } from '../Services/cpu-type.service';
+import { MessageService } from 'primeng/api';
+
 @Component({
   selector: 'app-cpu-type',
   templateUrl: './cpu-type.component.html',
@@ -13,12 +15,22 @@ export class CpuTypeComponent implements OnInit {
 
   cpuTypeForm!: FormGroup;
 
+  displayDeleteConfirmation: boolean = false;
+
+  DeleteId!:number;
+
+  DeleteCpuTypeDetail:any;
+
+
   CpuTypeList:any;
+
   CpuTypeListTemp:any;
+
   CpuTypeEdit:any;
+  
   CpuTypeEditTemp:any;
 
-  constructor(public formBuilder: FormBuilder,public CpuTypeService:CpuTypeService) { }
+  constructor(public formBuilder: FormBuilder,public CpuTypeService:CpuTypeService,public messageService:MessageService ) { }
 
   ngOnInit(): void {
 
@@ -39,6 +51,7 @@ export class CpuTypeComponent implements OnInit {
   hideDialog() {
     this.cpuDialog = false;
     this.submitted = false;
+    this.cpuTypeForm.reset();
 }
 
 saveCpu(){
@@ -52,19 +65,25 @@ saveCpu(){
   console.log("this.cpuTypeForm.value2222",this.cpuTypeForm.value);
   if(this.cpuTypeForm.valid){
     this.CpuTypeService.CpuTypePost(this.cpuTypeForm.value).subscribe(res=>{  
+      this.getCpuType(); 
+      this.messageService.add({severity:'success', summary: 'Success', detail: 'Cpu type added'});
     });
 
-  }      
+  } 
+  this.cpuDialog = false;       
  }
   else{
   if(this.cpuTypeForm.valid){
   this.CpuTypeService.EditCpuType(this.cpuTypeForm.value).subscribe((res)=>{ 
     this.CpuTypeListTemp = res;
+    this.getCpuType();
     console.log("this.CpuTypeList",this.CpuTypeListTemp);
+    this.messageService.add({severity:'success', summary: 'Success', detail: 'Cpu type added'});
   });
+  this.cpuDialog = false; 
  }
   }
-
+  this.cpuTypeForm.reset();
 }
 
 getCpuType(){
@@ -96,14 +115,35 @@ EditCpuType(id : any,){
 
 }
 
-DeleteCpuType(id : number){
-console.log("Deleteid",id);
-if(id!=0){
-    this.CpuTypeService.DeleteCpuType(id).subscribe((res)=>{ 
-     console.log("this.CpuTypeList",this.CpuTypeListTemp);
-      });
-}
+DeleteCpuType(id : number,cpuTypeName : any){
+  this.displayDeleteConfirmation=true;
+  console.log("Deleteid",id);
+  this.DeleteId=0;
+  this.DeleteCpuTypeDetail = null;
+  this.DeleteId=id;
+  this.DeleteCpuTypeDetail = cpuTypeName;
+  }
 
-}
+  yesDelete(){
+    console.log(this.DeleteId);
+    console.log(this.DeleteCpuTypeDetail)
+
+    if(this.DeleteId!=0){
+      this.CpuTypeService.DeleteCpuType(this.DeleteId).subscribe((res)=>{ 
+       console.log("this.AssetTypeList",this.CpuTypeListTemp);
+       this.getCpuType();
+       this.messageService.add({severity:'success', summary: 'Success', detail: 'Asset type '+ this.DeleteCpuTypeDetail +' Deleted'});
+        });
+      }
+      this.displayDeleteConfirmation = false;
+      setTimeout (() => {
+        this.DeleteId=0;
+        this.DeleteCpuTypeDetail=null},500);
+  }
+
+  noDelete(){
+    console.log(this.DeleteId);
+    this.displayDeleteConfirmation = false;
+  }
 
 }

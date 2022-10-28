@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { RamTypeService } from '../Services/ram-type.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-ram-type',
@@ -15,11 +16,17 @@ export class RamTypeComponent implements OnInit {
 
   ramTypeForm!: FormGroup;
 
+  displayDeleteConfirmation: boolean = false;
+
+  DeleteId!:number;
+
+  DeleteRamTypeDetail:any;
+
   RamTypeList:any;
   RamTypeListTemp:any;
   RamTypeEdit:any;
   RamTypeEditTemp:any;
-  constructor(public formBuilder: FormBuilder,public RamTypeService:RamTypeService ) { }
+  constructor(public formBuilder: FormBuilder,public RamTypeService:RamTypeService, public  messageService: MessageService ) { }
 
   ngOnInit(): void {
 
@@ -51,18 +58,21 @@ export class RamTypeComponent implements OnInit {
     if(this.ramTypeForm.valid){
       this.RamTypeService.RamTypePost(this.ramTypeForm.value).subscribe(res=>{  
       });
-  
+      this.ramDialog = false; 
     }      
    }
     else{
     if(this.ramTypeForm.valid){
     this.RamTypeService.EditRamType(this.ramTypeForm.value).subscribe((res)=>{ 
       this.RamTypeListTemp = res;
-      console.log("this.RamTypeList",this.RamTypeListTemp);
+      this.getRamType();
+    console.log("this.RamTypeList",this.RamTypeListTemp);
+    this.messageService.add({severity:'success', summary: 'Success', detail: 'Asset type added'});
     });
+    this.ramDialog = false; 
    }
     }
-  
+    this.ramTypeForm.reset();
   }
   
   getRamType(){
@@ -94,13 +104,35 @@ export class RamTypeComponent implements OnInit {
   
   }
   
-  DeleteRamType(id : number){
-  console.log("Deleteid",id);
-  if(id!=0){
-      this.RamTypeService.DeleteRamType(id).subscribe((res)=>{ 
-       console.log("this.RamTypeList",this.RamTypeListTemp);
-        });
-  }
+  DeleteRamType(id : number,cpuTypeName : any){
+    this.displayDeleteConfirmation=true;
+    console.log("Deleteid",id);
+    this.DeleteId=0;
+    this.DeleteRamTypeDetail = null;
+    this.DeleteId=id;
+    this.DeleteRamTypeDetail = cpuTypeName;
+    }
   
-  }
+    yesDelete(){
+      console.log(this.DeleteId);
+      console.log(this.DeleteRamTypeDetail)
+  
+      if(this.DeleteId!=0){
+        this.RamTypeService.DeleteRamType(this.DeleteId).subscribe((res)=>{ 
+         console.log("this.AssetTypeList",this.RamTypeListTemp);
+         this.getRamType();
+         this.messageService.add({severity:'success', summary: 'Success', detail: 'Asset type '+ this.DeleteRamTypeDetail +' Deleted'});
+          });
+        }
+        this.displayDeleteConfirmation = false;
+        setTimeout (() => {
+          this.DeleteId=0;
+          this.DeleteRamTypeDetail=null},500);
+    }
+  
+    noDelete(){
+      console.log(this.DeleteId);
+      this.displayDeleteConfirmation = false;
+    }
+  
 }

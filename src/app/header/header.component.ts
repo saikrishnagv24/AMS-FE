@@ -49,6 +49,7 @@ export class HeaderComponent implements OnInit {
                  {
                   label:'Hard Disk Type',
                   icon:'',
+                  routerLink: 'HarddiscType'
                
                  },
                 {

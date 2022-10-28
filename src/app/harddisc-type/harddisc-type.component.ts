@@ -5,7 +5,7 @@ import { HarddiscTypeService } from 'src/app/Services/harddisc-type.service';
 @Component({
   selector: 'app-harddisc-type',
   templateUrl: './harddisc-type.component.html',
-  styleUrls: ['./harddisc-type.component.css']
+  // styleUrls: ['./harddisc-type.component.css']
 })
 export class HarddiscTypeComponent implements OnInit {
   submitted!: boolean;
@@ -22,11 +22,11 @@ export class HarddiscTypeComponent implements OnInit {
 
   ngOnInit(): void {
     this.harddiscTypeForm = this.formBuilder.group({
-      Id:[''],
+      Id:[0],
       HarddiscTypeName : ['',Validators.required]
    })
     
-
+   this.getHarddiscType();
  
   }
 
@@ -44,7 +44,7 @@ export class HarddiscTypeComponent implements OnInit {
 
 saveHarddisc(){
   this.submitted=true;
-  console.log("this.assetTypeForm.value",this.harddiscTypeForm.value);
+  console.log("this.harddiscTypeForm.value",this.harddiscTypeForm.value);
   
   if(this.harddiscTypeForm.value.Id == undefined){
     this.harddiscTypeForm.get("Id")?.setValue(0);

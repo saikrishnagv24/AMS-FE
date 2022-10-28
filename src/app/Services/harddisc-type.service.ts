@@ -13,7 +13,7 @@ export class HarddiscTypeService {
 
   
   HarddiscTypePost(HarddiscFromDate: any){
-    return this.httpClient.post<any>(this.Apiurl+'/AssetType/AssetTypeForm',HarddiscFromDate,{
+    return this.httpClient.post<any>(this.Apiurl+'/Harddisc/HarddiscTypeForm',HarddiscFromDate,{
       headers:new HttpHeaders({
         "content-type":"application/json"
       })
@@ -22,7 +22,7 @@ export class HarddiscTypeService {
 
   GetHarddiscType()
   {
-    return this.httpClient.get<any>(this.Apiurl+'/HarddiscType/GetHarddiscType',{
+    return this.httpClient.get<any>(this.Apiurl+'/Harddisc/GetHarddiscType',{
       headers:new HttpHeaders({
         "content-type":"application/json"
       })
@@ -31,7 +31,7 @@ export class HarddiscTypeService {
 
    
   EditHarddiscType(EditHarddiscFromDate : any){
-    return this.httpClient.put<any>(this.Apiurl+'/HarddiscType/EditHarddiscTypeForm',EditHarddiscFromDate,{
+    return this.httpClient.put<any>(this.Apiurl+'/Harddisc/EditHarddiscTypeForm',EditHarddiscFromDate,{
       headers:new HttpHeaders({
         "content-type":"application/json"
       })
@@ -39,7 +39,7 @@ export class HarddiscTypeService {
   }
 
   DeleteHarddiscType(id: any){
-    return this.httpClient.delete<any>(this.Apiurl+'/HarddiscType/DeleteHarddiscType/'+id,{
+    return this.httpClient.delete<any>(this.Apiurl+'/Harddisc/DeleteHarddiscType/'+id,{
       headers:new HttpHeaders({
         "content-type":"application/json"
       })
@@ -48,7 +48,7 @@ export class HarddiscTypeService {
 
 
   GetEditHarddiscType (id: number){
-      return this.httpClient.get<any>(this.Apiurl+'/HarddiscType/GetEditHarddiscType/'+id,{
+      return this.httpClient.get<any>(this.Apiurl+'/Harddisc/GetEditHarddiscType/'+id,{
         headers:new HttpHeaders({
           "content-type":"application/json"
         })

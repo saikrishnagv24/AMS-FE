@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { HarddiscTypeService } from 'src/app/Services/harddisc-type.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-harddisc-type',
   templateUrl: './harddisc-type.component.html',
-  styleUrls: ['./harddisc-type.component.css']
+  // styleUrls: ['./harddisc-type.component.css']
 })
 export class HarddiscTypeComponent implements OnInit {
   submitted!: boolean;
@@ -16,9 +17,14 @@ export class HarddiscTypeComponent implements OnInit {
   HarddiscTypeService: any;
   HarddiscTypeEdit : any;
   HarddiscTypeEditTemp : any;
+  displayDeleteConfirmation: boolean = false;
+
+  DeleteId!:number;
+
+  DeleteHardTypeDetail:any;
 
 
-  constructor(public formBuilder: FormBuilder , public harddiscTypeService : HarddiscTypeService) { }
+  constructor(public formBuilder: FormBuilder , public harddiscTypeService : HarddiscTypeService,public messageService:MessageService) { }
 
   ngOnInit(): void {
     this.harddiscTypeForm = this.formBuilder.group({
@@ -55,15 +61,20 @@ saveHarddisc(){
     this.harddiscTypeService.HarddiscTypePost(this.harddiscTypeForm.value).subscribe(res=>{  
     });
 
-  }      
+  }   
+  this.harddiscDialog = false;    
  }
  else{
   if(this.harddiscTypeForm.valid){
   this.harddiscTypeService.EditHarddiscType(this.harddiscTypeForm.value).subscribe((res: any)=>{ 
     this.HardTypeListTemp = res;
-    console.log("this.HarddiscTypeList",this.HardTypeListTemp);
+    this.getHarddiscType();
+    console.log("this.CpuTypeList",this.HardTypeListTemp);
+    this.messageService.add({severity:'success', summary: 'Success', detail: 'Cpu type added'});
   });
+  this.harddiscDialog = false; 
  }
+ this.harddiscTypeForm.reset();
   }
 }
 getHarddiscType(){
@@ -90,14 +101,37 @@ EditHarddiscType(id : any,){
   this.harddiscTypeForm.get("HarddiscTypeName")?.patchValue(this.HarddiscTypeEdit.harddiscTypeName);},500)
 }
 
-DeleteHarddiscType(id : number){
+DeleteHarddiscType(id : number,cpuTypeName : any){
+  this.displayDeleteConfirmation=true;
   console.log("Deleteid",id);
-  if(id!=0){
-      this.harddiscTypeService.DeleteHarddiscType(id).subscribe((res)=>{ 
-       console.log("this.HarddiscTypeList",this.HardTypeListTemp);
-        });
-  }
-  
+  this.DeleteId=0;
+  this. DeleteHardTypeDetail = null;
+  this.DeleteId=id;
+  this. DeleteHardTypeDetail = cpuTypeName;
   }
 
-}
+  yesDelete(){
+    console.log(this.DeleteId);
+    console.log(this.DeleteHardTypeDetail)
+
+    if(this.DeleteId!=0){
+      this.harddiscTypeService.DeleteHarddiscType(this.DeleteId).subscribe((res)=>{ 
+       console.log("this.AssetTypeList",this.HardTypeListTemp);
+       this.getHarddiscType();
+       this.messageService.add({severity:'success', summary: 'Success', detail: 'Asset type '+ this.DeleteHardTypeDetail +' Deleted'});
+        });
+      }
+      this.displayDeleteConfirmation = false;
+      setTimeout (() => {
+        this.DeleteId=0;
+        this. DeleteHardTypeDetail=null},500);
+  }
+
+  noDelete(){
+    console.log(this.DeleteId);
+    this.displayDeleteConfirmation = false;
+  }
+
+  }
+
+

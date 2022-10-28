@@ -43,6 +43,8 @@ import { AssetTypeComponent } from './Assets/asset-type/asset-type.component';
 import { HarddiscTypeComponent } from './harddisc-type/harddisc-type.component';
 import { CpuTypeComponent } from './cpu-type/cpu-type.component';
 import { RamTypeComponent } from './ram-type/ram-type.component';
+import { EmployeeComponent } from './employee/employee.component';
+import { DepartmentComponent } from './department/department.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,9 @@ import { RamTypeComponent } from './ram-type/ram-type.component';
     AssetTypeComponent,
     HarddiscTypeComponent,
     CpuTypeComponent,
-    RamTypeComponent
+    RamTypeComponent,
+    EmployeeComponent,
+    DepartmentComponent
   ],
   imports: [
     BrowserModule,

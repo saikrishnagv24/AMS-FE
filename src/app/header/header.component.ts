@@ -20,13 +20,12 @@ export class HeaderComponent implements OnInit {
               {
                   label:'Add Employee',
                   icon:'pi-users',
-                  
-                 
-                },
+                  routerLink:'Employee'
+                 },
                 {
                   label:'Department',
                   icon:'',
-               
+                  routerLink:'Department'
                  },
                 {
                   label:'Asset Type',
@@ -49,7 +48,8 @@ export class HeaderComponent implements OnInit {
                  {
                   label:'Hard Disk Type',
                   icon:'',
-               
+                  routerLink:'HarddiscType'
+                  
                  },
                 {
                   label:'LogOut',

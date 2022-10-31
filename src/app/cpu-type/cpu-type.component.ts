@@ -11,6 +11,8 @@ import { MessageService } from 'primeng/api';
 export class CpuTypeComponent implements OnInit {
   cpuDialog!: boolean;
 
+  cpuDialogEdit!: boolean;
+
   submitted!: boolean;
 
   cpuTypeForm!: FormGroup;
@@ -78,9 +80,9 @@ saveCpu(){
     this.CpuTypeListTemp = res;
     this.getCpuType();
     console.log("this.CpuTypeList",this.CpuTypeListTemp);
-    this.messageService.add({severity:'success', summary: 'Success', detail: 'Cpu type added'});
+    this.messageService.add({severity:'success', summary: 'Success', detail: 'Cpu type edited'});
   });
-  this.cpuDialog = false; 
+  this.cpuDialogEdit = false; 
  }
   }
   this.cpuTypeForm.reset();
@@ -97,7 +99,7 @@ getCpuType(){
 }
 
 EditCpuType(id : any,){
-  this.cpuDialog = true;
+  this.cpuDialogEdit = true;
   console.log("dadad",id);
   this.CpuTypeService.GetEditCpuType(id).subscribe((res)=>{ 
     console.log("res",res);
@@ -126,13 +128,13 @@ DeleteCpuType(id : number,cpuTypeName : any){
 
   yesDelete(){
     console.log(this.DeleteId);
-    console.log(this.DeleteCpuTypeDetail)
+    console.log('delete',this.DeleteCpuTypeDetail);
 
     if(this.DeleteId!=0){
       this.CpuTypeService.DeleteCpuType(this.DeleteId).subscribe((res)=>{ 
-       console.log("this.AssetTypeList",this.CpuTypeListTemp);
+       console.log("this.CpuTypeList",this.CpuTypeListTemp);
        this.getCpuType();
-       this.messageService.add({severity:'success', summary: 'Success', detail: 'Asset type '+ this.DeleteCpuTypeDetail +' Deleted'});
+       this.messageService.add({severity:'success', summary: 'Success', detail: 'Cpu type '+ this.DeleteCpuTypeDetail +' Deleted'});
         });
       }
       this.displayDeleteConfirmation = false;

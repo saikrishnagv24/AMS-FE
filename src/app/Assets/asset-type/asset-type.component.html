@@ -26,7 +26,7 @@
     >
     <ng-template pTemplate="caption">
         <div class="p-d-flex p-ai-center p-jc-between">
-          <h5 class="p-m-0">Asset Types</h5>
+          <h3 class="p-m-0">Asset Types</h3>
           <span class="p-input-icon-left">
             <i class="pi pi-search"></i>
             <input
@@ -77,6 +77,22 @@
   </div>
   
   <p-dialog header="Add Asset Type" [(visible)]="assetDialog" [style]="{width: '50vw'}" [baseZIndex]="10000">
+    <ng-template pTemplate="content">
+    <form [formGroup]="assetTypeForm">     
+            <input type="text" pInputText id="assettype" [hidden]="true" formControlName="Id"  autofocus />       
+            <div class="p-field">
+                <label for="assettype">Asset Type</label>
+                <input type="text" pInputText id="assettype" formControlName="AssetTypeName"  required autofocus />
+            </div>
+    </form>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <p-button  icon="pi pi-times" (click)="hideDialog()" label="Cancel" styleClass="p-button-danger"></p-button>
+        <p-button  icon="pi pi-check" (click)="saveAsset()" label="Save" styleClass="p-button-success" [disabled]="!assetTypeForm.valid"></p-button>
+    </ng-template>
+  </p-dialog>
+
+  <p-dialog header="Edit Asset Type" [(visible)]="assetDialogEdit" [style]="{width: '50vw'}" [baseZIndex]="10000">
     <ng-template pTemplate="content">
     <form [formGroup]="assetTypeForm">     
             <input type="text" pInputText id="assettype" [hidden]="true" formControlName="Id"  autofocus />       

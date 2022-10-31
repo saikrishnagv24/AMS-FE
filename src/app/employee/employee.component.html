@@ -25,7 +25,7 @@
     >
     <ng-template pTemplate="caption">
         <div class="p-d-flex p-ai-center p-jc-between">
-          <h5 class="p-m-0">Employee Details</h5>
+          <h3 class="p-m-0">Employee Details</h3>
           <span class="p-input-icon-left">
             <i class="pi pi-search"></i>
             <input
@@ -40,10 +40,11 @@
       <ng-template pTemplate="header">
         <tr>
           <th [hidden]="true" field="id">Employee Id</th>
-          <th pSortableColumn="assetTypeName">Employee Name <p-sortIcon field="assetTypeName"></p-sortIcon>
-          <th pSortableColumn="assetTypeName">Contact Number<p-sortIcon field="assetTypeName"></p-sortIcon>
-          <th pSortableColumn="assetTypeName">Location <p-sortIcon field="assetTypeName"></p-sortIcon>
-          <th pSortableColumn="assetTypeName">Department <p-sortIcon field="assetTypeName"></p-sortIcon> 
+          <th pSortableColumn="employeeId">Employee Id <p-sortIcon field="employeeId"></p-sortIcon>
+          <th pSortableColumn="employeeName">Employee Name <p-sortIcon field="employeeName"></p-sortIcon>
+          <th pSortableColumn="employeeNumber">Contact Number<p-sortIcon field="employeeNumber"></p-sortIcon>
+          <th pSortableColumn="employeeLocation">Location <p-sortIcon field="employeeLocation"></p-sortIcon>
+          <th pSortableColumn="employeeDepartment">Department <p-sortIcon field="employeeDepartment"></p-sortIcon> 
         </th>
           <th></th>
         </tr>
@@ -71,7 +72,7 @@
       </ng-template> -->
       <ng-template pTemplate="summary">
         <div class="p-d-flex p-ai-center p-jc-between">
-          In total there are {{ EmployeeDetailsList ? EmployeeDetailsList.length : 0 }} Asset Types.
+          In total there are {{ EmployeeDetailsList ? EmployeeDetailsList.length : 0 }} Employee.
         </div>
       </ng-template>
     </p-table>

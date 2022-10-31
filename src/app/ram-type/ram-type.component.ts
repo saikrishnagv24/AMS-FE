@@ -12,6 +12,8 @@ export class RamTypeComponent implements OnInit {
 
   ramDialog!: boolean;
 
+  ramDialogEdit! : boolean;
+
   submitted!: boolean;
 
   ramTypeForm!: FormGroup;
@@ -57,6 +59,8 @@ export class RamTypeComponent implements OnInit {
     console.log("this.ramTypeForm.value2222",this.ramTypeForm.value);
     if(this.ramTypeForm.valid){
       this.RamTypeService.RamTypePost(this.ramTypeForm.value).subscribe(res=>{  
+        this.getRamType(); 
+      this.messageService.add({severity:'success', summary: 'Success', detail: 'Cpu type added'});
       });
       this.ramDialog = false; 
     }      
@@ -67,9 +71,9 @@ export class RamTypeComponent implements OnInit {
       this.RamTypeListTemp = res;
       this.getRamType();
     console.log("this.RamTypeList",this.RamTypeListTemp);
-    this.messageService.add({severity:'success', summary: 'Success', detail: 'Asset type added'});
+    this.messageService.add({severity:'success', summary: 'Success', detail: 'RAM type edited'});
     });
-    this.ramDialog = false; 
+    this.ramDialogEdit = false; 
    }
     }
     this.ramTypeForm.reset();
@@ -86,7 +90,7 @@ export class RamTypeComponent implements OnInit {
   }
   
   EditRamType(id : any,){
-    this.ramDialog = true;
+    this.ramDialogEdit = true;
     console.log("dadad",id);
     this.RamTypeService.GetEditRamType(id).subscribe((res)=>{ 
       console.log("res",res);
@@ -96,7 +100,7 @@ export class RamTypeComponent implements OnInit {
       this.RamTypeEdit =this.RamTypeEditTemp;
     console.log("this.RamTypeEditTemp",this.RamTypeEdit)
     this.ramTypeForm.get("Id")?.patchValue(this.RamTypeEdit.id);
-    this.ramTypeForm.get("RamTypeName")?.patchValue(this.RamTypeEdit.cpuTypeName);},500)
+    this.ramTypeForm.get("RamTypeName")?.patchValue(this.RamTypeEdit.ramTypeName);},500)
   
     
   
@@ -104,13 +108,13 @@ export class RamTypeComponent implements OnInit {
   
   }
   
-  DeleteRamType(id : number,cpuTypeName : any){
+  DeleteRamType(id : number,ramTypeName : any){
     this.displayDeleteConfirmation=true;
     console.log("Deleteid",id);
     this.DeleteId=0;
     this.DeleteRamTypeDetail = null;
     this.DeleteId=id;
-    this.DeleteRamTypeDetail = cpuTypeName;
+    this.DeleteRamTypeDetail = ramTypeName;
     }
   
     yesDelete(){
@@ -119,9 +123,9 @@ export class RamTypeComponent implements OnInit {
   
       if(this.DeleteId!=0){
         this.RamTypeService.DeleteRamType(this.DeleteId).subscribe((res)=>{ 
-         console.log("this.AssetTypeList",this.RamTypeListTemp);
+         console.log("this.RamTypeList",this.RamTypeListTemp);
          this.getRamType();
-         this.messageService.add({severity:'success', summary: 'Success', detail: 'Asset type '+ this.DeleteRamTypeDetail +' Deleted'});
+         this.messageService.add({severity:'success', summary: 'Success', detail: 'RAM type '+ this.DeleteRamTypeDetail +' Deleted'});
           });
         }
         this.displayDeleteConfirmation = false;

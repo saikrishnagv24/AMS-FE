@@ -25,7 +25,7 @@
     >
     <ng-template pTemplate="caption">
         <div class="p-d-flex p-ai-center p-jc-between">
-          <h3 class="p-m-0">Cpu Types</h3>
+          <h3 class="p-m-0">CPU Types</h3>
           <span class="p-input-icon-left">
             <i class="pi pi-search"></i>
             <input
@@ -41,7 +41,7 @@
         <tr>
           <th [hidden]="true" field="id">Id</th>
           <th pSortableColumn="cpuTypeName">
-            Processor Type <p-sortIcon field="cpuTypeName"></p-sortIcon>
+            CPU Type <p-sortIcon field="cpuTypeName"></p-sortIcon>
           </th>
           <th></th>
         </tr>
@@ -62,14 +62,14 @@
               pRipple
               icon="pi pi-trash"
               class="p-button-rounded p-button-warning"
-              (click)="DeleteCpuType(product.id,product.assetTypeName)"
+              (click)="DeleteCpuType(product.id,product.cpuTypeName)"
             ></button>
           </td>
         </tr>
       </ng-template>
       <ng-template pTemplate="summary">
         <div class="p-d-flex p-ai-center p-jc-between">
-          In total there are {{ CpuTypeList ? CpuTypeList.length : 0 }} Asset Types.
+          In total there are {{ CpuTypeList ? CpuTypeList.length : 0 }} Cpu Types.
         </div>
       </ng-template>
     </p-table>
@@ -80,7 +80,7 @@
     <form [formGroup]="cpuTypeForm">     
             <input type="text" pInputText id="Id" [hidden]="true" formControlName="Id"  autofocus />       
             <div class="p-field">
-                <label for="cputype">Processor Type</label>
+                <label for="cputype">CPU Type</label>
                 <input type="text" pInputText id="cputype" formControlName="CpuTypeName"  required autofocus />
             </div>
     </form>
@@ -89,6 +89,23 @@
         <p-button  icon="pi pi-times" (click)="hideDialog()" label="Cancel" styleClass="p-button-danger"></p-button>
         <p-button  icon="pi pi-check" (click)="saveCpu()" label="Save" styleClass="p-button-success" [disabled]="!cpuTypeForm.valid"></p-button>
     </ng-template>
+</p-dialog>
+
+
+<p-dialog header="Edit CPU Type" [(visible)]="cpuDialogEdit" [style]="{width: '50vw'}" [baseZIndex]="10000">
+  <ng-template pTemplate="content">
+  <form [formGroup]="cpuTypeForm">     
+          <input type="text" pInputText id="Id" [hidden]="true" formControlName="Id"  autofocus />       
+          <div class="p-field">
+              <label for="cputype">CPU Type</label>
+              <input type="text" pInputText id="cputype" formControlName="CpuTypeName"  required autofocus />
+          </div>
+  </form>
+  </ng-template>
+  <ng-template pTemplate="footer">
+      <p-button  icon="pi pi-times" (click)="hideDialog()" label="Cancel" styleClass="p-button-danger"></p-button>
+      <p-button  icon="pi pi-check" (click)="saveCpu()" label="Save" styleClass="p-button-success" [disabled]="!cpuTypeForm.valid"></p-button>
+  </ng-template>
 </p-dialog>
 
 

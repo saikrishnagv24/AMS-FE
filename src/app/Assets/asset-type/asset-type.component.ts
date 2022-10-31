@@ -19,6 +19,8 @@ export class AssetTypeComponent implements OnInit {
   
   assetDialog!: boolean;
 
+  assetDialogEdit!: boolean;
+
   submitted!: boolean;
 
   assetTypeForm!: FormGroup;
@@ -83,9 +85,9 @@ saveAsset(){
     this.AssetTypeListTemp = res;
     this.getAssetType();
     console.log("this.AssetTypeList",this.AssetTypeListTemp);
-    this.messageService.add({severity:'success', summary: 'Success', detail: 'Asset type added'});
+    this.messageService.add({severity:'success', summary: 'Success', detail: 'Asset type edited'});
   });
-  this.assetDialog = false; 
+  this.assetDialogEdit = false; 
   }
   }
   this.assetTypeForm.reset();
@@ -104,7 +106,7 @@ getAssetType(){
 }
 
 EditAssetType(id : any,){
-  this.assetDialog = true;
+  this.assetDialogEdit = true;
   console.log("dadad",id);
   this.AssetTypeService.GetEditAssetType(id).subscribe((res)=>{ 
     console.log("res",res);

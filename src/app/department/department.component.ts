@@ -11,6 +11,8 @@ export class DepartmentComponent implements OnInit {
 
   departmentDialog!: boolean;
 
+  departmentDialogEdit!: boolean;
+
   submitted!: boolean;
 
   departmentTypeForm!: FormGroup;
@@ -36,8 +38,8 @@ export class DepartmentComponent implements OnInit {
 
     this.departmentTypeForm = this.formBuilder.group({
       id:[0],
-      departmentName : ['',Validators.required],
-      description : ['',Validators.required] 
+      departmentName : ['',Validators.required]
+      // description : ['',Validators.required] 
    })
 
    this. getDepartment();
@@ -79,9 +81,9 @@ export class DepartmentComponent implements OnInit {
       this.DepartmentTypeListTemp = res;
       this.getDepartment();
       console.log("this.DepartmentTypeList",this.DepartmentTypeListTemp);
-      this.messageService.add({severity:'success', summary: 'Success', detail: 'Asset type added'});
+      this.messageService.add({severity:'success', summary: 'Success', detail: 'department name Edited'});
     });
-    this.departmentDialog = false; 
+    this.departmentDialogEdit = false; 
     }
     }
     this.departmentTypeForm.reset();
@@ -91,16 +93,16 @@ export class DepartmentComponent implements OnInit {
   
   getDepartment(){
     this.DepartmentService.GetDepartment().subscribe((res)=>{ 
-      this.DepartmentTypeListTemp = res;
-      console.log("this.DepartmentTypeList",this.DepartmentTypeListTemp);
+      this.DepartmentTypeList = res;
+      console.log("this.DepartmentTypeList",this.DepartmentTypeList);
     });
-    setTimeout (() => {
-      this.DepartmentTypeList =this.DepartmentTypeListTemp;
-    console.log("this.DepatmentTypeList2",this.DepartmentTypeList);},1000)
+    // setTimeout (() => {
+    //   this.DepartmentTypeList =this.DepartmentTypeListTemp;
+    // console.log("this.DepatmentTypeList2",this.DepartmentTypeList);},1000)
   }
   
   EditDepartment(id : any,){
-    this.departmentDialog = true;
+    this.departmentDialogEdit = true;
     console.log("dadad",id);
     this.DepartmentService.GetEditDepartment(id).subscribe((res)=>{ 
       console.log("res",res);
@@ -108,12 +110,13 @@ export class DepartmentComponent implements OnInit {
     });
     setTimeout (() => {
       this.DepartmentTypeEdit =this.DepartmentTypeEditTemp;
-    console.log("this.AssetTypeEditTemp",this.DepartmentTypeEdit)
+    console.log("this.departmentEditTemp",this.DepartmentTypeEdit)
     this.departmentTypeForm.get("id")?.patchValue(this.DepartmentTypeEdit.id);
     this.departmentTypeForm.get("departmentName")?.patchValue(this.DepartmentTypeEdit.departmentName);},500)
+    // this.departmentTypeForm.get("description")?.patchValue(this.DepartmentTypeEdit.description);},500)
   }
   
-  DeleteDepartment(id : number,departmentName : any,description : any){
+  DeleteDepartment(id : number,departmentName : any){
     this.displayDeleteConfirmation=true;
     console.log("Deleteid",id);
     this.DeleteId=0;
@@ -121,26 +124,26 @@ export class DepartmentComponent implements OnInit {
     this.DeleteDepartmentdescription= null;
     this.DeleteId=id;
     this.DeleteDepartmentType = departmentName;
-    this.DeleteDepartmentdescription= description;
+    // this.DeleteDepartmentdescription= description;
     }
   
     yesDelete(){
       console.log(this.DeleteId);
       console.log(this.DeleteDepartmentType);
-      console.log(this.DeleteDepartmentdescription)
+      // console.log(this.DeleteDepartmentdescription)
   
       if(this.DeleteId!=0){
         this.DepartmentService.DeleteDepartment(this.DeleteId).subscribe((res)=>{ 
          console.log("this.DepartmentTypeList",this.DepartmentTypeListTemp);
          this.getDepartment();
-         this.messageService.add({severity:'success', summary: 'Success', detail: 'Department Name '+ this.DeleteDepartment +' Deleted'});
+         this.messageService.add({severity:'success', summary: 'Success', detail: 'Department Name '+ this.DeleteDepartmentType +' Deleted'});
           });
         }
         this.displayDeleteConfirmation = false;
         setTimeout (() => {
           this.DeleteId=0;
-          this.DeleteDepartmentType=null;
-          this.DeleteDepartmentdescription=null},500);
+          this.DeleteDepartmentType=null},500)
+          // this.DeleteDepartmentdescription=null},500);
     }
   
     noDelete(){

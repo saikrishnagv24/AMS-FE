@@ -30,7 +30,7 @@ export class CpuTypeService {
     }
 
     EditCpuType(EditCpuFromDate : any){
-      return this.httpClient.put<any>(this.Apiurl+'/CpuType/GetCpuType',EditCpuFromDate,{
+      return this.httpClient.put<any>(this.Apiurl+'/CpuType/EditCpuTypeForm',EditCpuFromDate,{
         headers:new HttpHeaders({
           "content-type":"application/json"
         })

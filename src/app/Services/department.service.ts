@@ -30,7 +30,7 @@ export class DepartmentService {
     }
 
     EditDepartment(EditDepartmentFromDate : any){
-      return this.httpClient.put<any>(this.Apiurl+'/Department/GetDepartment',EditDepartmentFromDate,{
+      return this.httpClient.put<any>(this.Apiurl+'/Department/EditDepartmentForm',EditDepartmentFromDate,{
         headers:new HttpHeaders({
           "content-type":"application/json"
         })
@@ -38,7 +38,7 @@ export class DepartmentService {
     }
 
     DeleteDepartment(id: any){
-      return this.httpClient.delete<any>(this.Apiurl+'​/Department​/DeleteDepartment/'+id,{
+      return this.httpClient.delete<any>(this.Apiurl+'/Department/DeleteDepartment/'+id,{
         headers:new HttpHeaders({
           "content-type":"application/json"
         })

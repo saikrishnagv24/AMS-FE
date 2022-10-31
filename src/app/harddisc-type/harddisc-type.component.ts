@@ -11,6 +11,7 @@ import { MessageService } from 'primeng/api';
 export class HarddiscTypeComponent implements OnInit {
   submitted!: boolean;
   harddiscDialog!: boolean;
+  editHarddiscDialog! : boolean;
   harddiscTypeForm: any;
   HardTypeListTemp: any;
   HarddiscTypeList: any;
@@ -31,6 +32,7 @@ export class HarddiscTypeComponent implements OnInit {
       Id:[''],
       HarddiscTypeName : ['',Validators.required]
    })
+   this.getHarddiscType();
     
 
  
@@ -50,16 +52,17 @@ export class HarddiscTypeComponent implements OnInit {
 
 saveHarddisc(){
   this.submitted=true;
-  console.log("this.assetTypeForm.value",this.harddiscTypeForm.value);
   
-  if(this.harddiscTypeForm.value.Id == undefined){
+  if(this.harddiscTypeForm.value.Id == undefined || this.harddiscTypeForm.value.Id==''){
     this.harddiscTypeForm.get("Id")?.setValue(0);
   }
   if(this.harddiscTypeForm.value.Id == 0){
-  console.log("this.harddiscTypeForm.value2222",this.harddiscTypeForm.value);
   if(this.harddiscTypeForm.valid){
     this.harddiscTypeService.HarddiscTypePost(this.harddiscTypeForm.value).subscribe(res=>{  
+      this.getHarddiscType();
+      this.messageService.add({severity:'success', summary: 'Success', detail: ' Harddisc Type added'});
     });
+   
 
   }   
   this.harddiscDialog = false;    
@@ -69,8 +72,7 @@ saveHarddisc(){
   this.harddiscTypeService.EditHarddiscType(this.harddiscTypeForm.value).subscribe((res: any)=>{ 
     this.HardTypeListTemp = res;
     this.getHarddiscType();
-    console.log("this.CpuTypeList",this.HardTypeListTemp);
-    this.messageService.add({severity:'success', summary: 'Success', detail: 'Cpu type added'});
+    this.messageService.add({severity:'success', summary: 'Success', detail: 'Harddisc Type edited'});
   });
   this.harddiscDialog = false; 
  }
@@ -80,30 +82,25 @@ saveHarddisc(){
 getHarddiscType(){
   this.harddiscTypeService.GetHarddiscType().subscribe((res: any)=>{ 
     this.HardTypeListTemp = res;
-    console.log("this.HarddiscTypeList",this.HardTypeListTemp);
   });
   setTimeout (() => {
     this.HarddiscTypeList =this.HardTypeListTemp;
-  console.log("this.HarddiscTypeList2",this.HarddiscTypeList);},1000)
+  ;},3000)
 }
 
 EditHarddiscType(id : any,){
-  this.harddiscDialog = true;
-  console.log("dadad",id);
+  this.editHarddiscDialog = true;
   this.harddiscTypeService.GetEditHarddiscType(id).subscribe((res)=>{ 
-    console.log("res",res);
     this.HardTypeListTemp = res;
   });
   setTimeout (() => {
     this.HarddiscTypeEdit =this.HardTypeListTemp;
-  console.log("this.HarddiscTypeEditTemp",this.HarddiscTypeEdit)
   this.harddiscTypeForm.get("Id")?.patchValue(this.HarddiscTypeEdit.id);
   this.harddiscTypeForm.get("HarddiscTypeName")?.patchValue(this.HarddiscTypeEdit.harddiscTypeName);},500)
 }
 
 DeleteHarddiscType(id : number,cpuTypeName : any){
   this.displayDeleteConfirmation=true;
-  console.log("Deleteid",id);
   this.DeleteId=0;
   this. DeleteHardTypeDetail = null;
   this.DeleteId=id;
@@ -116,9 +113,8 @@ DeleteHarddiscType(id : number,cpuTypeName : any){
 
     if(this.DeleteId!=0){
       this.harddiscTypeService.DeleteHarddiscType(this.DeleteId).subscribe((res)=>{ 
-       console.log("this.AssetTypeList",this.HardTypeListTemp);
        this.getHarddiscType();
-       this.messageService.add({severity:'success', summary: 'Success', detail: 'Asset type '+ this.DeleteHardTypeDetail +' Deleted'});
+       this.messageService.add({severity:'success', summary: 'Success', detail: 'Harddisc type '+ this.DeleteHardTypeDetail +' Deleted'});
         });
       }
       this.displayDeleteConfirmation = false;

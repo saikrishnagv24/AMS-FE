@@ -27,6 +27,11 @@ export class HeaderComponent implements OnInit {
                   icon:'',
                   routerLink:'Department'
                  },
+                 {
+                  label:'Location',
+                  icon:'',
+                  routerLink:'Location'
+                 },
                 {
                   label:'Asset Type',
                   icon:'',

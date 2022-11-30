@@ -7,10 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EmployeeComponent implements OnInit {
   EmployeeDetailsList: any;
+  addEmployeeDialog:boolean=false;
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  openNew(){}
+  openNew(){
+    this.addEmployeeDialog=true;
+  }
+  hideDialog(){
+    this.addEmployeeDialog=false;
+  }
 }

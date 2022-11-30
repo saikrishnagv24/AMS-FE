@@ -77,3 +77,37 @@
       </ng-template>
     </p-table>
   </div>
+
+<p-dialog [(visible)]="addEmployeeDialog" [style]="{width: '450px'}" header="Add Employee" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="p-field">
+            <label for="empId">Employee Id</label>
+            <input type="text" pInputText id="empId"  required autofocus />
+        </div>
+        <div class="p-field">
+            <label for="empName">Employee Name</label>
+            <input type="text" id="empName" pInputTextarea required/>
+        </div>
+        <div class="p-field">
+          <label for="empName">Contact Number</label>
+          <input type="text" id="empName" pInputTextarea required/>
+        </div>
+          
+        <div class="p-field p-col-12 p-md-4">
+            <label for="basic">Location</label>
+            <p-calendar inputId="basic" ></p-calendar>
+        </div>
+        
+        <div class="p-field">
+            <label for="Remark">Department</label>
+            <textarea id="Remark" pInputTextarea required rows="3" cols="20"></textarea>
+        </div>
+        
+
+    </ng-template>
+    
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-danger" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-success" ></button>
+    </ng-template>
+</p-dialog>

@@ -1,0 +1,26 @@
+<p-toast></p-toast>
+<p-toolbar styleClass="p-mb-4">
+    <ng-template pTemplate="left">
+        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
+    </ng-template>
+
+    <ng-template pTemplate="right">
+         <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
+    </ng-template>
+</p-toolbar>
+
+<p-dialog header="Add Asset Type" [(visible)]="locationDialog" [style]="{width: '50vw'}" [baseZIndex]="10000">
+    <ng-template pTemplate="content">
+    <form [formGroup]="locationForm">     
+            <input type="text" pInputText [hidden]="true" formControlName="Id"  autofocus />       
+            <div class="p-field">
+                <label for="location">Location</label>
+                <input type="text" pInputText id="location" formControlName="Location"  required autofocus />
+            </div>
+    </form>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <p-button  icon="pi pi-times" (click)="hideDialog()" label="Cancel" styleClass="p-button-danger"></p-button>
+        <p-button  icon="pi pi-check" (click)="saveLocation()" label="Save" styleClass="p-button-success" [disabled]="!locationForm.valid"></p-button>
+    </ng-template>
+</p-dialog>

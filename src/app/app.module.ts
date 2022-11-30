@@ -45,6 +45,7 @@ import { CpuTypeComponent } from './cpu-type/cpu-type.component';
 import { RamTypeComponent } from './ram-type/ram-type.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { DepartmentComponent } from './department/department.component';
+import { LocationComponent } from './location/location.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { DepartmentComponent } from './department/department.component';
     CpuTypeComponent,
     RamTypeComponent,
     EmployeeComponent,
-    DepartmentComponent
+    DepartmentComponent,
+    LocationComponent
   ],
   imports: [
     BrowserModule,

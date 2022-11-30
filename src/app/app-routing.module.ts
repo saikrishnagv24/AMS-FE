@@ -8,6 +8,7 @@ import { HarddiscTypeComponent } from './harddisc-type/harddisc-type.component';
 import { AssetsGridComponent } from './Home/assets-grid/assets-grid.component';
 import { DashboardComponent } from './Home/dashboard/dashboard.component';
 import { HomeComponent } from './Home/home/home.component';
+import { LocationComponent } from './location/location.component';
 import { LoginComponent } from './login/login.component';
 import { RamTypeComponent } from './ram-type/ram-type.component';
 import { RegisterFormComponent } from './register-form/register-form.component';
@@ -47,6 +48,10 @@ const routes: Routes = [
   {
     path: 'Department',
     component:DepartmentComponent
+  },
+  {
+    path: 'Location',
+    component:LocationComponent
   }
  ]
   }

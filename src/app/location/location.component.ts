@@ -22,8 +22,8 @@ export class LocationComponent implements OnInit {
 
   ngOnInit(): void {
     this.locationForm = this.formBuilder.group({
-      Id: [''],
-      Location: ['', Validators.required]
+      id: [''],
+      locationName: ['', Validators.required]
     })
     this.getLocation();
   }
@@ -37,13 +37,10 @@ export class LocationComponent implements OnInit {
   }
 
   saveLocation() {
-    console.log("this.locationForm.value", this.locationForm.value);
-
-    if (this.locationForm.value.Id == undefined || this.locationForm.value.Id == '') {
-      this.locationForm.get("Id")?.setValue(0);
+    if (this.locationForm.value.id == undefined || this.locationForm.value.id == '') {
+      this.locationForm.get("id")?.setValue(0);
     }
-    if (this.locationForm.value.Id == 0) {
-      console.log("this.locationForm.value2222", this.locationForm.value);
+    if (this.locationForm.value.id == 0) {
       if (this.locationForm.valid) {
         this.locationService.locationPost(this.locationForm.value).subscribe(res => {
           this.getLocation();
@@ -58,8 +55,7 @@ export class LocationComponent implements OnInit {
         this.locationService.EditLocationForm(this.locationForm.value).subscribe((res) => {
           this.editedLocationTemp = res;
           this.getLocation();
-          console.log("this.AssetTypeList", this.editedLocationTemp);
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Asset type edited' });
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Location edited' });
         });
         this.locationEditDialog = false;
       }
@@ -70,22 +66,19 @@ export class LocationComponent implements OnInit {
   getLocation() {
     this.locationService.GetLocation().subscribe((res) => {
       this.locationGridDetials = res;
-      console.log("this.AssetTypeList", this.locationGridDetials);
     });
   }
 
-  EditAssetType(id: any,) {
+  EditLocation(id: any,) {
     this.locationEditDialog = true;
-    console.log("dadad", id);
     this.locationService.GetEditLocation(id).subscribe((res) => {
       this.loctionEdit = res;
-      console.log("this.AssetTypeEditTemp", this.loctionEdit)
-      this.locationForm.get("Id")?.patchValue(this.loctionEdit.id);
-      this.locationForm.get("AssetTypeName")?.patchValue(this.loctionEdit.assetTypeName);
+      this.locationForm.get("id")?.patchValue(this.loctionEdit.id);
+      this.locationForm.get("locationName")?.patchValue(this.loctionEdit.locationName);
     });
   }
 
-  DelteAssetType(id: number, assetTypeName: any) {
+  DelteLocation(id: number, assetTypeName: any) {
     this.displayDeleteConfirmation = true;
     console.log("Deleteid", id);
     this.DelteId = 0;

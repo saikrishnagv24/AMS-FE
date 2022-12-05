@@ -62,8 +62,6 @@ saveHarddisc(){
       this.getHarddiscType();
       this.messageService.add({severity:'success', summary: 'Success', detail: ' Harddisc Type added'});
     });
-   
-
   }   
   this.harddiscDialog = false;    
  }
@@ -74,29 +72,24 @@ saveHarddisc(){
     this.getHarddiscType();
     this.messageService.add({severity:'success', summary: 'Success', detail: 'Harddisc Type edited'});
   });
-  this.harddiscDialog = false; 
+  this.editHarddiscDialog = false; 
  }
  this.harddiscTypeForm.reset();
   }
 }
 getHarddiscType(){
   this.harddiscTypeService.GetHarddiscType().subscribe((res: any)=>{ 
-    this.HardTypeListTemp = res;
+    this.HarddiscTypeList = res;
   });
-  setTimeout (() => {
-    this.HarddiscTypeList =this.HardTypeListTemp;
-  ;},3000)
 }
 
 EditHarddiscType(id : any,){
   this.editHarddiscDialog = true;
   this.harddiscTypeService.GetEditHarddiscType(id).subscribe((res)=>{ 
-    this.HardTypeListTemp = res;
+    this.HarddiscTypeEdit = res;
+    this.harddiscTypeForm.get("Id")?.patchValue(this.HarddiscTypeEdit.id);
+    this.harddiscTypeForm.get("HarddiscTypeName")?.patchValue(this.HarddiscTypeEdit.harddiscTypeName);
   });
-  setTimeout (() => {
-    this.HarddiscTypeEdit =this.HardTypeListTemp;
-  this.harddiscTypeForm.get("Id")?.patchValue(this.HarddiscTypeEdit.id);
-  this.harddiscTypeForm.get("HarddiscTypeName")?.patchValue(this.HarddiscTypeEdit.harddiscTypeName);},500)
 }
 
 DeleteHarddiscType(id : number,cpuTypeName : any){

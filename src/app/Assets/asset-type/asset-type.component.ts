@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { AssetTypeService } from 'src/app/Services/asset-type.service';
+import * as FileSaver from 'file-saver'
 
 // export interface type{
 //   id:number;
@@ -105,7 +106,8 @@ getAssetType(){
   console.log("this.AssetTypeList2",this.AssetTypeList);},1000)
 }
 
-EditAssetType(id : any,){
+EditAssetType(event:any,id : any,){
+  console.log("event",event);
   this.assetDialogEdit = true;
   console.log("dadad",id);
   this.AssetTypeService.GetEditAssetType(id).subscribe((res)=>{ 
@@ -149,4 +151,27 @@ DelteAssetType(id : number,assetTypeName : any){
     console.log(this.DelteId);
     this.displayDeleteConfirmation = false;
   }
+
+//excel button click functionality
+exportExcel() {
+  import("xlsx").then(xlsx => {
+      const worksheet = xlsx.utils.json_to_sheet(this.AssetTypeList); // Sale Data
+      const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+      const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+      this.saveAsExcelFile(excelBuffer, "AssetType");
+  });
+}
+saveAsExcelFile(buffer: any, fileName: string): void {
+    let EXCEL_TYPE =
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+    let EXCEL_EXTENSION = ".xlsx";
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(
+      data,
+      fileName + "_export_" + new Date().getTime() + EXCEL_EXTENSION
+    );
+}
+
 }

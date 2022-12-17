@@ -1,55 +1,41 @@
 <p-toast></p-toast>
 <p-toolbar styleClass="p-mb-4">
-    <ng-template pTemplate="left">
-        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
-    </ng-template>
+  <ng-template pTemplate="left">
+    <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
+  </ng-template>
 
-    <ng-template pTemplate="right">
-         <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
-    </ng-template>
+  <ng-template pTemplate="right">
+    <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
+  </ng-template>
 </p-toolbar>
 
 <div class="card">
-    <p-table
-      #dt
-      [value]="EmployeeDetailsList"
-      [rows]="10"
-      [paginator]="true"
-      [rowHover]="true"
-      [globalFilterFields]="[
+  <p-table #dt [value]="EmployeeDetailsList" [rows]="10" [paginator]="true" [rowHover]="true" [globalFilterFields]="[
       EmployeeDetailsList
-        ]"
-      dataKey="id"
-      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-      [showCurrentPageReport]="true"
-    >
+        ]" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true">
     <ng-template pTemplate="caption">
-        <div class="p-d-flex p-ai-center p-jc-between">
-          <h3 class="p-m-0">Employee Details</h3>
-          <span class="p-input-icon-left">
-            <i class="pi pi-search"></i>
-            <input
-              pInputText
-              type="text"
-              (input)="dt.filterGlobal($event.target, 'contains')"
-              placeholder="Search..."
-            />
-          </span>
-        </div>
-      </ng-template>
-      <ng-template pTemplate="header">
-        <tr>
-          <th [hidden]="true" field="id">Employee Id</th>
-          <th pSortableColumn="employeeId">Employee Id <p-sortIcon field="employeeId"></p-sortIcon>
-          <th pSortableColumn="employeeName">Employee Name <p-sortIcon field="employeeName"></p-sortIcon>
-          <th pSortableColumn="employeeNumber">Contact Number<p-sortIcon field="employeeNumber"></p-sortIcon>
-          <th pSortableColumn="employeeLocation">Location <p-sortIcon field="employeeLocation"></p-sortIcon>
-          <th pSortableColumn="employeeDepartment">Department <p-sortIcon field="employeeDepartment"></p-sortIcon> 
+      <div class="p-d-flex p-ai-center p-jc-between">
+        <h3 class="p-m-0">Employee Details</h3>
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" (input)="dt.filterGlobal($event.target, 'contains')" placeholder="Search..." />
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th [hidden]="true" field="id">Employee Id</th>
+        <th pSortableColumn="employeeId">Employee Id <p-sortIcon field="employeeId"></p-sortIcon>
+        <th pSortableColumn="employeeName">Employee Name <p-sortIcon field="employeeName"></p-sortIcon>
+        <th pSortableColumn="employeeNumber">Contact Number<p-sortIcon field="employeeNumber"></p-sortIcon>
+        <th pSortableColumn="employeeLocation">Location <p-sortIcon field="employeeLocation"></p-sortIcon>
+        <th pSortableColumn="employeeDepartment">Department <p-sortIcon field="employeeDepartment"></p-sortIcon>
         </th>
-          <th></th>
-        </tr>
-      </ng-template>
-      <!-- <ng-template pTemplate="body" let-product>
+        <th></th>
+      </tr>
+    </ng-template>
+    <!-- <ng-template pTemplate="body" let-product>
         <tr>
           <td>{{ product.assetTypeName }}</td>
           <td>
@@ -70,44 +56,49 @@
           </td>
         </tr>
       </ng-template> -->
-      <ng-template pTemplate="summary">
-        <div class="p-d-flex p-ai-center p-jc-between">
-          In total there are {{ EmployeeDetailsList ? EmployeeDetailsList.length : 0 }} Employee.
-        </div>
-      </ng-template>
-    </p-table>
-  </div>
-
-<p-dialog [(visible)]="addEmployeeDialog" [style]="{width: '450px'}" header="Add Employee" [modal]="true" styleClass="p-fluid">
-    <ng-template pTemplate="content">
-        <div class="p-field">
-            <label for="empId">Employee Id</label>
-            <input type="text" pInputText id="empId"  required autofocus />
-        </div>
-        <div class="p-field">
-            <label for="empName">Employee Name</label>
-            <input type="text" id="empName" pInputTextarea required/>
-        </div>
-        <div class="p-field">
-          <label for="empName">Contact Number</label>
-          <input type="text" id="empName" pInputTextarea required/>
-        </div>
-          
-        <div class="p-field p-col-12 p-md-4">
-            <label for="basic">Location</label>
-            <p-calendar inputId="basic" ></p-calendar>
-        </div>
-        
-        <div class="p-field">
-            <label for="Remark">Department</label>
-            <textarea id="Remark" pInputTextarea required rows="3" cols="20"></textarea>
-        </div>
-        
-
+    <ng-template pTemplate="summary">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        In total there are {{ EmployeeDetailsList ? EmployeeDetailsList.length : 0 }} Employee.
+      </div>
     </ng-template>
-    
-    <ng-template pTemplate="footer">
-        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-danger" (click)="hideDialog()"></button>
-        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-success" ></button>
-    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog [(visible)]="addEmployeeDialog" [style]="{width: '450px'}" header="Add Employee" [modal]="true"
+  styleClass="p-fluid">
+  <ng-template pTemplate="content">
+    <form [formGroup]="EmployeeForm">
+      <input type="text" pInputText [hidden]="true" formControlName="Id"  autofocus /> 
+      <div class="p-field">
+        <label for="empId">Employee Id</label>
+        <input type="text" formControlName="EmployeeId" pInputText id="empId" required autofocus />
+      </div>
+      <div class="p-field">
+        <label for="empName">Employee Name</label>
+        <input type="text" formControlName="EmployeeName" id="empName" pInputTextarea required />
+      </div>
+      <div class="p-field">
+        <label for="conNum">Contact Number</label>
+        <input type="text" formControlName="ContactNumber" id="conNum" pInputTextarea required />
+      </div>
+
+      <div class="p-field">
+        <label for="dep">Department</label>
+        <p-dropdown [filter]="true" filterBy="name" formControlName="Department" placeholder="Select a Department" optionLabel="name" id="dep"
+          [showClear]="true"></p-dropdown>
+      </div>
+
+      <div class="p-field">
+        <label for="loc">Location</label>
+        <p-dropdown [filter]="true" filterBy="name" formControlName="Location" placeholder="Select a Location" optionLabel="name" id="loc"
+          [showClear]="true"></p-dropdown>
+      </div>
+    </form>
+
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-danger" (click)="hideDialog()"></button>
+    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-success"></button>
+  </ng-template>
 </p-dialog>

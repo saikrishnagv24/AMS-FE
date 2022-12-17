@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-employee',
@@ -8,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 export class EmployeeComponent implements OnInit {
   EmployeeDetailsList: any;
   addEmployeeDialog:boolean=false;
-  constructor() { }
+  EmployeeForm!: FormGroup;
+  constructor(public formBuilder: FormBuilder,) { }
 
   ngOnInit(): void {
+    this.EmployeeForm = this.formBuilder.group({
+      Id:[''],
+      EmployeeId : ['',Validators.required],
+      EmployeeName : ['',Validators.required],
+      ContactNumber : ['',Validators.required],
+      Department : ['',Validators.required],
+      Location : ['',Validators.required]
+   })
   }
 
   openNew(){

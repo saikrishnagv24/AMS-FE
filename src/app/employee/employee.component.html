@@ -75,22 +75,22 @@
       </div>
       <div class="p-field">
         <label for="empName">Employee Name</label>
-        <input type="text" formControlName="EmployeeName" id="empName" pInputTextarea required />
+        <input type="text" formControlName="Name" id="empName" pInputTextarea required />
       </div>
       <div class="p-field">
         <label for="conNum">Contact Number</label>
-        <input type="text" formControlName="ContactNumber" id="conNum" pInputTextarea required />
+        <input type="text" formControlName="PhoneNumber" id="conNum" pInputTextarea required />
       </div>
 
       <div class="p-field">
         <label for="dep">Department</label>
-        <p-dropdown [filter]="true" filterBy="name" formControlName="Department" placeholder="Select a Department" optionLabel="name" id="dep"
+        <p-dropdown [options]="DepartmentDropdown" [filter]="true" filterBy="name" formControlName="DepartmentId" placeholder="Select a Department" optionLabel="departmentName" optionValue="id" id="dep"
           [showClear]="true"></p-dropdown>
       </div>
 
       <div class="p-field">
         <label for="loc">Location</label>
-        <p-dropdown [filter]="true" filterBy="name" formControlName="Location" placeholder="Select a Location" optionLabel="name" id="loc"
+        <p-dropdown [options]="locationDropdown" [filter]="true" filterBy="name" formControlName="LocationId" placeholder="Select a Location" optionLabel="name" id="loc" optionLabel="locationName" optionValue="id"
           [showClear]="true"></p-dropdown>
       </div>
     </form>
@@ -99,6 +99,6 @@
 
   <ng-template pTemplate="footer">
     <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-danger" (click)="hideDialog()"></button>
-    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-success"></button>
+    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-success" (click)="saveEmployee()"></button>
   </ng-template>
 </p-dialog>

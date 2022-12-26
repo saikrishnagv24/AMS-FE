@@ -9,11 +9,16 @@ import { EmployeeService } from '../Services/employee.service';
   styleUrls: ['./employee.component.css']
 })
 export class EmployeeComponent implements OnInit {
-  EmployeeDetailsList: any;
   addEmployeeDialog:boolean=false;
   EmployeeForm!: FormGroup;
   DepartmentDropdown:any;
   locationDropdown:any;
+  employeeList:any;
+  displayDeleteConfirmation:boolean=false;
+  DelteId!:number;
+  DeleteEmployee:any;
+  EditEmployeeDialog:boolean=false;
+  EmployeeEdit:any;
   constructor(public formBuilder: FormBuilder,public employeeService:EmployeeService,private messageService: MessageService) { }
 
   ngOnInit(): void {
@@ -28,50 +33,95 @@ export class EmployeeComponent implements OnInit {
 
    this.getDepartmentDropdown();
    this.getLocationDropdown();
+   this.getEmployeeDetails();
   }
 
   getDepartmentDropdown(){
     this.employeeService.GetDepartment().subscribe((res)=>{ 
       this.DepartmentDropdown = res;
-      console.log("this.DepartmentDropdown",this.DepartmentDropdown);
     });
   }
   getLocationDropdown(){
     this.employeeService.GetLocation().subscribe((res) => {
       this.locationDropdown = res;
-      console.log("this.locationDropdown",this.locationDropdown);
     });
   }
 
-  saveEmployee(){
-    console.log("this.EmployeeForm",this.EmployeeForm.value);   
+  getEmployeeDetails(){
+    this.employeeService.getEmployees().subscribe((res) => {
+      this.employeeList = res;
+    });
+  }
+  saveEmployee(){ 
         if(this.EmployeeForm.value.Id == undefined || this.EmployeeForm.value.Id==''){
         this.EmployeeForm.get("Id")?.setValue(0);
       }
       if(this.EmployeeForm.value.Id == 0){
-      console.log("this.assetTypeForm.value2222",this.EmployeeForm.value);
       if(this.EmployeeForm.valid){
         this.employeeService.AddEmployee(this.EmployeeForm.value).subscribe(res=>{ 
-          //this.getAssetType(); 
-          this.messageService.add({severity:'success', summary: 'Success', detail: 'Asset type added'});
+          this.getEmployeeDetails(); 
+          this.messageService.add({severity:'success', summary: 'Success', detail: 'Employee added'});
         });
     
       }
-      //this.assetDialog = false;    
+      this.addEmployeeDialog = false;    
       }
       else{
       if(this.EmployeeForm.valid){
-      this.employeeService.EditEmployee(this.EmployeeForm.value).subscribe((res)=>{ 
-        // this.AssetTypeListTemp = res;
-        // this.getAssetType();
-       // console.log("this.AssetTypeList",this.AssetTypeListTemp);
-        this.messageService.add({severity:'success', summary: 'Success', detail: 'Asset type edited'});
+      this.employeeService.EditEmployeeData(this.EmployeeForm.value).subscribe((res)=>{ 
+        this.getEmployeeDetails(); 
+        this.messageService.add({severity:'success', summary: 'Success', detail: 'Employee edited'});
       });
-      //this.assetDialogEdit = false; 
+      this.EditEmployeeDialog = false; 
       }
       }
       this.EmployeeForm.reset();
     
+  }
+
+  EditEmployee(id: number){
+    this.EditEmployeeDialog=true;
+    this.employeeService.getEmployeeEditDetial(id).subscribe((res)=>{ 
+      this.EmployeeEdit = res;
+      console.log("EmployeeEdit",this.EmployeeEdit)
+      this.EmployeeForm.get("Id")?.patchValue(this.EmployeeEdit.id);
+      this.EmployeeForm.get("EmployeeId")?.patchValue(this.EmployeeEdit.employeeId);
+      this.EmployeeForm.get("Name")?.patchValue(this.EmployeeEdit.name);
+      this.EmployeeForm.get("PhoneNumber")?.patchValue(this.EmployeeEdit.phoneNumber);
+      this.EmployeeForm.get("DepartmentId")?.patchValue(this.EmployeeEdit.departmentId);
+      this.EmployeeForm.get("LocationId")?.patchValue(this.EmployeeEdit.locationId);
+    });
+  }
+
+  DelteAssetType(id : number,assetTypeName : any){
+    this.displayDeleteConfirmation=true;
+    console.log("Deleteid",id);
+    this.DelteId=0;
+    this.DeleteEmployee = null;
+    this.DelteId=id;
+    this.DeleteEmployee = assetTypeName;
+  }
+  
+  yesDelete(){
+      console.log(this.DelteId);
+      console.log(this.DeleteEmployee)
+  
+      if(this.DelteId!=0){
+        this.employeeService.DeleteEmployee(this.DelteId).subscribe((res)=>{ 
+         //console.log("this.AssetTypeList",this.AssetTypeListTemp);
+         this.getEmployeeDetails();
+         this.messageService.add({severity:'success', summary: 'Success', detail: 'Employee'+ this.DeleteEmployee +' Deleted'});
+          });
+        }
+        this.displayDeleteConfirmation = false;
+        setTimeout (() => {
+          this.DelteId=0;
+          this.DeleteEmployee=null},500);
+  }
+  
+  noDelete(){
+      console.log(this.DelteId);
+      this.displayDeleteConfirmation = false;
   }
 
   openNew(){

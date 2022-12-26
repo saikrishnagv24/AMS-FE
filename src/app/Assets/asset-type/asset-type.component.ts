@@ -106,8 +106,7 @@ getAssetType(){
   console.log("this.AssetTypeList2",this.AssetTypeList);},1000)
 }
 
-EditAssetType(event:any,id : any,){
-  console.log("event",event);
+EditAssetType(id : any,){
   this.assetDialogEdit = true;
   console.log("dadad",id);
   this.AssetTypeService.GetEditAssetType(id).subscribe((res)=>{ 

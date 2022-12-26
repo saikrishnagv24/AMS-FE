@@ -10,8 +10,8 @@
 </p-toolbar>
 
 <div class="card">
-  <p-table #dt [value]="EmployeeDetailsList" [rows]="10" [paginator]="true" [rowHover]="true" [globalFilterFields]="[
-      EmployeeDetailsList
+  <p-table #dt [value]="employeeList" [rows]="10" [paginator]="true" [rowHover]="true" [globalFilterFields]="[
+  employeeList
         ]" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
     [showCurrentPageReport]="true">
     <ng-template pTemplate="caption">
@@ -35,30 +35,34 @@
         <th></th>
       </tr>
     </ng-template>
-    <!-- <ng-template pTemplate="body" let-product>
+    <ng-template pTemplate="body" let-product>
         <tr>
-          <td>{{ product.assetTypeName }}</td>
+          <td>{{ product.employeeId}}</td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.phoneNumber}}</td>
+          <td>{{ product.location}}</td>
+          <td>{{ product.department}}</td>
           <td>
             <button
               pButton
               pRipple
               icon="pi pi-pencil"
               class="p-button-rounded p-button-success p-mr-2"
-              (click)="EditAssetType(product.id)"
+              (click)="EditEmployee(product.id)"
             ></button>
             <button
               pButton
               pRipple
               icon="pi pi-trash"
               class="p-button-rounded p-button-warning"
-              (click)="DelteAssetType(product.id,product.assetTypeName)"
+              (click)="DelteAssetType(product.id,product.name)"
             ></button>
           </td>
         </tr>
-      </ng-template> -->
+      </ng-template>
     <ng-template pTemplate="summary">
       <div class="p-d-flex p-ai-center p-jc-between">
-        In total there are {{ EmployeeDetailsList ? EmployeeDetailsList.length : 0 }} Employee.
+        In total there are {{ employeeList ? employeeList.length : 0 }} Employee.
       </div>
     </ng-template>
   </p-table>
@@ -101,4 +105,50 @@
     <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-danger" (click)="hideDialog()"></button>
     <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-success" (click)="saveEmployee()"></button>
   </ng-template>
+</p-dialog>
+
+
+<p-dialog [(visible)]="EditEmployeeDialog" [style]="{width: '450px'}" header="Add Employee" [modal]="true"
+  styleClass="p-fluid">
+  <ng-template pTemplate="content">
+    <form [formGroup]="EmployeeForm">
+      <input type="text" pInputText [hidden]="true" formControlName="Id"  autofocus /> 
+      <div class="p-field">
+        <label for="empId">Employee Id</label>
+        <input type="text" formControlName="EmployeeId" pInputText id="empId" required autofocus />
+      </div>
+      <div class="p-field">
+        <label for="empName">Employee Name</label>
+        <input type="text" formControlName="Name" id="empName" pInputTextarea required />
+      </div>
+      <div class="p-field">
+        <label for="conNum">Contact Number</label>
+        <input type="text" formControlName="PhoneNumber" id="conNum" pInputTextarea required />
+      </div>
+
+      <div class="p-field">
+        <label for="dep">Department</label>
+        <p-dropdown [options]="DepartmentDropdown" [filter]="true" filterBy="name" formControlName="DepartmentId" placeholder="Select a Department" optionLabel="departmentName" optionValue="id" id="dep"
+          [showClear]="true"></p-dropdown>
+      </div>
+
+      <div class="p-field">
+        <label for="loc">Location</label>
+        <p-dropdown [options]="locationDropdown" [filter]="true" filterBy="name" formControlName="LocationId" placeholder="Select a Location" optionLabel="name" id="loc" optionLabel="locationName" optionValue="id"
+          [showClear]="true"></p-dropdown>
+      </div>
+    </form>
+
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-danger" (click)="hideDialog()"></button>
+    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-success" (click)="saveEmployee()"></button>
+  </ng-template>
+</p-dialog>
+
+<p-dialog header="Delete Confirmation" [(visible)]="displayDeleteConfirmation" [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+  <p>Are you sure do you want to delete this Asset Type <b>{{DeleteEmployee}}</b></p>
+  <p-button  icon="pi pi-times" (click)="noDelete()" label="No" styleClass="p-button-danger"></p-button>
+  <p-button  icon="pi pi-check" (click)="yesDelete()" label="Yes" styleClass="p-button-success"></p-button>
 </p-dialog>

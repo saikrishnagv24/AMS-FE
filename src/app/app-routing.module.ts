@@ -4,8 +4,10 @@ import { AssetTypeComponent } from './Assets/asset-type/asset-type.component';
 import { CpuTypeComponent } from './cpu-type/cpu-type.component';
 import { DepartmentComponent } from './department/department.component';
 import { EmployeeComponent } from './employee/employee.component';
+import { FrequencyOfTestingComponent } from './frequency-of-testing/frequency-of-testing.component';
 import { HarddiscTypeComponent } from './harddisc-type/harddisc-type.component';
 import { AssetsGridComponent } from './Home/assets-grid/assets-grid.component';
+import { AssignAssetsComponent } from './Home/assign-assets/assign-assets.component';
 import { DashboardComponent } from './Home/dashboard/dashboard.component';
 import { HomeComponent } from './Home/home/home.component';
 import { LocationComponent } from './location/location.component';
@@ -24,6 +26,10 @@ const routes: Routes = [
   {
     path: 'AssetGrid',
     component:AssetsGridComponent
+  },
+  {
+    path: 'AssiginAssets',
+    component:AssignAssetsComponent
   },
   {
     path: 'AssetType',
@@ -52,7 +58,11 @@ const routes: Routes = [
   {
     path: 'Location',
     component:LocationComponent
-  }
+  },
+  {
+    path: 'FrequencyOfTesting',
+    component:FrequencyOfTestingComponent
+  },
  ]
   }
   

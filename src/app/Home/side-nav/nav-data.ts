@@ -13,12 +13,12 @@ export const navbarData=
         icon:'fal fa-laptop',
         label:'Asset'
     },
-    // {
-    //     id:3,
-    //     routeLink:"AssetGrid",
-    //     icon:"fa-regular fa-gear",
-    //     label:'Setting'
+    {
+        id:3,
+        routeLink:"AssiginAssets",
+        icon:"fa-regular fa-gear",
+        label:'Setting'
        
-    // }
+    }
 
 ];

@@ -56,6 +56,11 @@ export class HeaderComponent implements OnInit {
                   routerLink:'HarddiscType'
                   
                  },
+                 {
+                  label:'Frequency Of Testing',
+                  icon:'',
+                  routerLink:'FrequencyOfTesting'
+                 },
                 {
                   label:'LogOut',
                   icon:'',

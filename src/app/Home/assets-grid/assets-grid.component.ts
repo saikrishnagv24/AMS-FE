@@ -25,7 +25,7 @@ export class AssetsGridComponent implements OnInit {
   displayDeleteConfirmation:boolean=false;
   EditAssetDialog:boolean=false;
   AssetEditData:any;
-  constructor(public formBuilder: FormBuilder,public addAssetsService:AddAssetsService,private messageService: MessageService) { }
+  constructor(public formBuilder: FormBuilder,public addAssetsService:AddAssetsService,private messageService: MessageService,) { }
 
   ngOnInit(): void {
     let today = new Date();

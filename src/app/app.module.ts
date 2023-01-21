@@ -46,6 +46,8 @@ import { RamTypeComponent } from './ram-type/ram-type.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { DepartmentComponent } from './department/department.component';
 import { LocationComponent } from './location/location.component';
+import { AssignAssetsComponent } from './Home/assign-assets/assign-assets.component';
+import { FrequencyOfTestingComponent } from './frequency-of-testing/frequency-of-testing.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +66,9 @@ import { LocationComponent } from './location/location.component';
     RamTypeComponent,
     EmployeeComponent,
     DepartmentComponent,
-    LocationComponent
+    LocationComponent,
+    AssignAssetsComponent,
+    FrequencyOfTestingComponent
   ],
   imports: [
     BrowserModule,

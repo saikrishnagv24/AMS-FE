@@ -1,0 +1,142 @@
+<p-toast></p-toast>
+
+<div class="card">
+    <p-toolbar styleClass="p-mb-4">
+<ng-template pTemplate="left">
+    <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
+</ng-template>
+
+<ng-template pTemplate="right">
+     <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
+</ng-template>
+</p-toolbar>
+
+    <p-table #dt [value]="AssetsData1" [rows]="10" [paginator]="true" [rowHover]="true" [globalFilterFields]="[
+    AssetsData
+          ]" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [showCurrentPageReport]="true">
+      
+      <ng-template pTemplate="caption">
+        <div class="p-d-flex p-ai-center p-jc-between">
+          <h3 class="p-m-0">Assign Assets</h3>
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" (input)="dt.filterGlobal($event.target, 'contains')" placeholder="Search..." />
+          </span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th [hidden]="true" field="id">Id</th>
+          <th pSortableColumn="employeeId">Asset Id <p-sortIcon field="employeeId"></p-sortIcon>
+          <th pSortableColumn="employeeName">Asset Type <p-sortIcon field="employeeName"></p-sortIcon>
+          <th pSortableColumn="employeeNumber">EmployeeID<p-sortIcon field="employeeNumber"></p-sortIcon>
+          <th pSortableColumn="employeeLocation">Employee Name <p-sortIcon field="employeeLocation"></p-sortIcon>
+          <th pSortableColumn="employeeDepartment">Employee Contact <p-sortIcon field="employeeDepartment"></p-sortIcon>
+          <th pSortableColumn="employeeLocation">Location<p-sortIcon field="employeeLocation"></p-sortIcon>
+            <th pSortableColumn="employeeLocation">Frequency of testing<p-sortIcon field="employeeLocation"></p-sortIcon>
+          <th pSortableColumn="employeeDepartment">Issued date<p-sortIcon field="employeeDepartment"></p-sortIcon>
+                    <!-- <th pSortableColumn="employeeDepartment">RetunDate<p-sortIcon field="employeeDepartment"></p-sortIcon> -->
+          <th pSortableColumn="employeeDepartment">Asset Cost<p-sortIcon field="employeeDepartment"></p-sortIcon>
+          <th pSortableColumn="employeeDepartment">Remark<p-sortIcon field="employeeDepartment"></p-sortIcon>
+          </th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-product>
+          <tr>
+            <td>{{ product.assetId}}</td>
+            <td>{{ product.assetName }}</td>
+            <td>{{ product.cpuType}}</td>
+            <td>{{ product.ramType}}</td>
+            <td>{{ product.hddType}}</td>
+            <td>{{ product.assetPurchaseDate}}</td>
+            <td>{{ product.assetCost}}</td>
+            <td>{{ product.remark}}</td>
+            <td>
+              <button
+                pButton
+                pRipple
+                icon="pi pi-pencil"
+                class="p-button-rounded p-button-success p-mr-2"
+              ></button>
+              <button
+                pButton
+                pRipple
+                icon="pi pi-trash"
+                class="p-button-rounded p-button-warning"
+               
+              ></button>
+            </td>
+          </tr>
+        </ng-template>
+      <ng-template pTemplate="summary">
+        <div class="p-d-flex p-ai-center p-jc-between">
+          In total there are {{ AssetsData1 ? AssetsData1.length : 0 }} Assets Assigned.
+        </div>
+      </ng-template>
+    </p-table>
+</div>
+
+<p-dialog header="Add Assign Asset" [(visible)]="assignAssetDialog" [style]="{width: '50vw'}" [baseZIndex]="10000">
+    <ng-template pTemplate="content">
+    <form [formGroup]="assignAssetForm">     
+        <div class="p-field">
+            <label for="AssetType">Select AssetId</label>
+            <p-dropdown  [options]="AssetsData" [filter]="true" filterBy="name" formControlName="AssetId" placeholder="Select type of asset" optionLabel="assetId" optionValue="id" 
+           (onChange)="collectAssetDetails($event.value)" [showClear]="true"></p-dropdown>
+        </div>
+        <div class="p-field">
+            <label for="AddAssetCost">Asset Cost</label>
+            <input type="text" pInputText id="AddAssetCost" formControlName="AssetCost"  required />
+        </div>
+        <div class="p-field">
+            <label for="AssetType">Select Asset Type</label>
+            <p-dropdown [options]="AssetType" [filter]="true" filterBy="name" formControlName="AssetType" placeholder="Select type of asset" optionLabel="assetTypeName" optionValue="id" 
+            [showClear]="true"></p-dropdown>
+        </div>
+        <div class="p-field">
+            <label for="Employee">Select EmployeeId</label>
+            <p-dropdown [options]="employeeList" [filter]="true" filterBy="name" formControlName="EmployeeId" placeholder="Select employee" optionLabel="name" optionValue="id" 
+            (onChange)="collectEmployeeDetails($event.value)"  [showClear]="true"></p-dropdown>
+        </div>
+        <div class="p-field">
+            <label for="AddAssetCost">Employee Name</label>
+            <input type="text" pInputText id="AddAssetCost" formControlName="EmployeeName"  required />
+        </div>
+        <div class="p-field">
+            <label for="AssetType">Employee department</label>
+            <p-dropdown [options]="DepartmentList" [filter]="true" filterBy="name" formControlName="EmployeeDepartment" placeholder="Select type of department" optionLabel="departmentName" optionValue="id" 
+            [showClear]="true"></p-dropdown>
+        </div>
+        <div class="p-field">
+            <label for="AddAssetCost">Contact Number</label>
+            <input type="text" pInputText id="AddAssetCost" formControlName="ContactNumber"  required />
+        </div>
+        <div class="p-field">
+            <label for="date">Assign Date</label>
+            <p-calendar id="date" formControlName="AssignDate" dateFormat="dd.mm.yy"></p-calendar>
+        </div>
+        <div class="p-field">
+            <label for="Employee">Select Location</label>
+            <p-dropdown [options]="locationDetials" [filter]="true" filterBy="name" formControlName="Location" placeholder="Select location" optionLabel="locationName" optionValue="id" 
+            [showClear]="true"></p-dropdown>
+        </div>
+        <div class="p-field">
+            <label for="Employee">Select Frequency Of Testing</label>
+            <p-dropdown [options]="frequencyDetials" [filter]="true" filterBy="name" formControlName="Frequency" placeholder="Select frequency of testing" optionLabel="frequencyTesting" optionValue="id" 
+            [showClear]="true"></p-dropdown>
+        </div>
+
+        <div class="p-field">
+            <label for="date">Remark</label>
+            <textarea id="Remark" pInputTextarea required rows="3" cols="20"  formControlName="Remark"></textarea>
+        </div>
+        
+    </form>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <p-button  icon="pi pi-times" (click)="hideDialog()" label="Cancel" styleClass="p-button-danger"></p-button>
+        <p-button  icon="pi pi-check" (click)="saveAssignAsset()" label="Save" styleClass="p-button-success" [disabled]="!assignAssetForm.valid"></p-button>
+    </ng-template>
+</p-dialog>

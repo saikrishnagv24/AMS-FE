@@ -147,7 +147,7 @@ export class AssetsGridComponent implements OnInit {
     this.DeleteAddAsset = null;
     this.DelteId=id;
     this.DeleteAddAsset = assetName;
-    }
+  }
   
     yesDelete(){
       console.log(this.DelteId);

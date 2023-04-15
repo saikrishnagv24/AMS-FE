@@ -17,6 +17,13 @@ export const navbarData=
         id:3,
         routeLink:"AssiginAssets",
         icon:"fa-regular fa-gear",
+        label:'Assigin Assets'
+       
+    },
+    {
+        id:4,
+        routeLink:"AssiginAssets",
+        icon:"fa-regular fa-gear",
         label:'Setting'
        
     }

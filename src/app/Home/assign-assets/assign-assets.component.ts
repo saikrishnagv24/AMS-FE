@@ -26,7 +26,11 @@ export class AssignAssetsComponent implements OnInit {
   AssetTypeDetails: any;
   employeeDetails: any;
   DepartmentList:any;
-  AssetsData1:any;
+  AssignAssetEditData: any;
+  AssingAssetGrid: any;
+  DelteId:any;
+  displayDeleteConfirmation:boolean=false;
+  DeleteAssignAssetId:any;
   constructor(public formBuilder: FormBuilder, 
     private messageService: MessageService,
     public addAssetsService:AddAssetsService,
@@ -42,17 +46,17 @@ export class AssignAssetsComponent implements OnInit {
       Id:[''],
       AssetId : ['',Validators.required],
       AssetCost: ['',Validators.required],
-      AssetType: ['',Validators.required],
+      AssetTypeId: ['',Validators.required],
       EmployeeId: ['',Validators.required],
       EmployeeName:['', Validators.required],
       EmployeeDepartment:['', Validators.required],
       ContactNumber:['', Validators.required],
-      AssignDate:['', Validators.required],
-      Location:['', Validators.required],
-      Frequency:[''],
+      IssuedDate:['', Validators.required],
+      LocationId:['', Validators.required],
+      FrequencyId:[''],
       Remark:['']  
    })
-
+   this.getAssingAsset();
    this.getAssetsData(); 
    this.getEmployeeDetails();
    this.getFrequencyOfTesting();
@@ -60,6 +64,13 @@ export class AssignAssetsComponent implements OnInit {
    this.getLocation();
    this.getDepartment();
   }
+  getAssingAsset(){
+    this.assignAssetsService.GetAssingAssetGrid().subscribe((res)=>{ 
+      this.AssingAssetGrid = res;
+      console.log("this.GetAssingAssetGrid",this.AssingAssetGrid);
+    });
+  }
+
   getAssetsData(){
     this.addAssetsService.GetAssets().subscribe((res)=>{ 
       this.AssetsData = res;
@@ -106,7 +117,7 @@ export class AssignAssetsComponent implements OnInit {
       this.AssetTypeDetails = res;
       console.log("this.AssetTypeDetails",this.AssetTypeDetails);
       this.assignAssetForm.get("AssetCost")?.setValue(this.AssetTypeDetails.assetCost);
-      this.assignAssetForm.get("AssetType")?.patchValue(this.AssetTypeDetails.assetTypeId);
+      this.assignAssetForm.get("AssetTypeId")?.patchValue(this.AssetTypeDetails.assetTypeId);
     });
   }
 
@@ -117,7 +128,7 @@ export class AssignAssetsComponent implements OnInit {
       this.assignAssetForm.get("EmployeeName")?.setValue(this.employeeDetails.name);
       this.assignAssetForm.get("EmployeeDepartment")?.patchValue(this.employeeDetails.departmentId);
       this.assignAssetForm.get("ContactNumber")?.patchValue(this.employeeDetails.phoneNumber);
-      this.assignAssetForm.get("Location")?.patchValue(this.employeeDetails.locationId);
+      this.assignAssetForm.get("LocationId")?.patchValue(this.employeeDetails.locationId);
     });
   }
 
@@ -133,7 +144,84 @@ export class AssignAssetsComponent implements OnInit {
   }
 
   saveAssignAsset(){
+    if(this.assignAssetForm.value.Id == undefined || this.assignAssetForm.value.Id==''){
+      this.assignAssetForm.get("Id")?.setValue(0);
+    }
+    if(this.assignAssetForm.value.Id == 0){
+      console.log("this.assignAssetForm",this.assignAssetForm.value);
+    if(this.assignAssetForm.valid){
+      this.assignAssetsService.AddAssignAssetForm(this.assignAssetForm.value).subscribe(res=>{ 
+        this.getAssingAsset(); 
+        this.messageService.add({severity:'success', summary: 'Success', detail: 'Employee added'});
+      });
+  
+    }
+    this.assignAssetDialog = false;    
+    }
+    else{
+      if(this.assignAssetForm.valid){
+      this.assignAssetsService.EditAssingAssetData(this.assignAssetForm.value).subscribe((res)=>{ 
+        this.getAssingAsset(); 
+        this.messageService.add({severity:'success', summary: 'Success', detail: 'Employee edited'});
+      });
+      this.assignAssetDialog = false; 
+      }
+      }
+      this.assignAssetForm.reset();
 
   }
+
+  EditAssignAsset(id:any){
+    this.assignAssetDialog=true;
+    this.assignAssetsService.getEditAssingAssetDetial(id).subscribe((res)=>{
+      this.AssignAssetEditData = res
+      console.log("this.AssignAssetEditData",this.AssignAssetEditData)
+      this.assignAssetForm.get("Id")?.setValue(this.AssignAssetEditData.id);
+      this.assignAssetForm.get("AssetId")?.setValue(this.AssignAssetEditData.assetdataid);
+      this.assignAssetForm.get("AssetCost")?.setValue(this.AssignAssetEditData.assetCost);
+      this.assignAssetForm.get("AssetTypeId")?.setValue(this.AssignAssetEditData.assetTypeId);
+      this.assignAssetForm.get("EmployeeId")?.setValue(this.AssignAssetEditData.empId);
+      this.assignAssetForm.get("EmployeeName")?.setValue(this.AssignAssetEditData.employeeName);
+      this.assignAssetForm.get("EmployeeDepartment")?.setValue(this.AssignAssetEditData.employeeDepartmentId);
+      this.assignAssetForm.get("ContactNumber")?.setValue(this.AssignAssetEditData.employeeContact);
+      this.assignAssetForm.get("IssuedDate")?.setValue(this.AssignAssetEditData.issuedDate);
+      this.assignAssetForm.get("LocationId")?.setValue(this.AssignAssetEditData.locationId);
+      this.assignAssetForm.get("FrequencyId")?.setValue(this.AssignAssetEditData.frequencyId);
+      this.assignAssetForm.get("Remark")?.setValue(this.AssignAssetEditData.remark);
+     });
+
+  }
+
+  DeleteAssignAsset(id : any,assetID:any){
+    this.displayDeleteConfirmation=true;
+    console.log("Deleteid",id);
+    this.DelteId=0;
+    this.DeleteAssignAssetId = null;
+    this.DelteId=id;
+    this.DeleteAssignAssetId = assetID;
+
+  }
+
+  yesDelete(){
+    console.log(this.DelteId);
+    console.log(this.DeleteAssignAssetId)
+
+    if(this.DelteId!=0){
+      this.assignAssetsService.DeleteAssignAsset(this.DelteId).subscribe((res)=>{ 
+       this.getAssingAsset();
+       this.messageService.add({severity:'success', summary: 'Success', detail: 'Asset type '+ this.DeleteAssignAssetId +' Deleted'});
+        });
+      }
+      this.displayDeleteConfirmation = false;
+      setTimeout (() => {
+        this.DelteId=0;
+        this.DeleteAssignAssetId=null},500);
+  }
+
+  noDelete(){
+    console.log(this.DelteId);
+    this.displayDeleteConfirmation = false;
+  }  
+
 }
 

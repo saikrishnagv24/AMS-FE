@@ -19,6 +19,8 @@ export class EmployeeComponent implements OnInit {
   DeleteEmployee:any;
   EditEmployeeDialog:boolean=false;
   EmployeeEdit:any;
+  searchValue:any;
+  dt:any;
   constructor(public formBuilder: FormBuilder,public employeeService:EmployeeService,private messageService: MessageService) { }
 
   ngOnInit(): void {
@@ -34,6 +36,10 @@ export class EmployeeComponent implements OnInit {
    this.getDepartmentDropdown();
    this.getLocationDropdown();
    this.getEmployeeDetails();
+  }
+
+  filterTable() {
+    this.dt.filterGlobal(this.searchValue, 'contains');
   }
 
   getDepartmentDropdown(){

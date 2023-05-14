@@ -16,7 +16,7 @@
       [paginator]="true"
       [rowHover]="true"
       [globalFilterFields]="[
-      HarddiscTypeList
+      'harddiscTypeName'
         ]"
       dataKey="id"
       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
@@ -30,7 +30,7 @@
             <input
               pInputText
               type="text"
-              (input)="dt.filterGlobal($event.target, 'contains')"
+              (input)="dt.filterGlobal($any($event.target).value, 'contains')"
               placeholder="Search..."
             />
           </span>

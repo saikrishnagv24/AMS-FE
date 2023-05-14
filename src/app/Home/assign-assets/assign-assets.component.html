@@ -12,7 +12,7 @@
 </p-toolbar>
 
     <p-table #dt [value]="AssingAssetGrid" [rows]="10" [paginator]="true" [rowHover]="true" [globalFilterFields]="[
-    AssetsData
+    'assetID','assetType','employeeId','employeeName','employeeContact','location','frequencyOfTesting'
           ]" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
       [showCurrentPageReport]="true">
       
@@ -21,7 +21,7 @@
           <h3 class="p-m-0">Assign Assets</h3>
           <span class="p-input-icon-left">
             <i class="pi pi-search"></i>
-            <input pInputText type="text" (input)="dt.filterGlobal($event.target, 'contains')" placeholder="Search..." />
+            <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Search..." />
           </span>
         </div>
       </ng-template>

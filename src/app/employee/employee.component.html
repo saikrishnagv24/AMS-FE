@@ -10,16 +10,14 @@
 </p-toolbar>
 
 <div class="card">
-  <p-table #dt [value]="employeeList" [rows]="10" [paginator]="true" [rowHover]="true" [globalFilterFields]="[
-  employeeList
-        ]" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  <p-table #dt [value]="employeeList" [rows]="10" [paginator]="true" [rowHover]="true" [globalFilterFields]="['employeeId','name','phoneNumber','location','department']" [showCurrentPageReport]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
     [showCurrentPageReport]="true">
     <ng-template pTemplate="caption">
       <div class="p-d-flex p-ai-center p-jc-between">
         <h3 class="p-m-0">Employee Details</h3>
         <span class="p-input-icon-left">
           <i class="pi pi-search"></i>
-          <input pInputText type="text" (input)="dt.filterGlobal($event.target, 'contains')" placeholder="Search..." />
+          <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Search..." />
         </span>
       </div>
     </ng-template>

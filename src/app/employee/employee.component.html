@@ -72,30 +72,45 @@
   styleClass="p-fluid">
   <ng-template pTemplate="content">
     <form [formGroup]="EmployeeForm">
-      <input type="text" pInputText [hidden]="true" formControlName="Id"  autofocus /> 
+      <input type="text" pInputText [hidden]="true" formControlName="Id" /> 
       <div class="p-field">
-        <label for="empId">Employee Id</label>
-        <input type="text" formControlName="EmployeeId" pInputText id="empId" required autofocus />
+        <label for="empId">Employee Id *</label>
+        <input id="empId" type="text" formControlName="EmployeeId" pInputText />
+        <small class="form-field-error" *ngIf="EmployeeForm.get('EmployeeId')?.invalid && (EmployeeForm.get('EmployeeId')?.dirty || EmployeeForm.get('EmployeeId')?.touched)">
+          Employee Id is required.
+         </small>
       </div>
       <div class="p-field">
-        <label for="empName">Employee Name</label>
-        <input type="text" formControlName="Name" id="empName" pInputTextarea required />
+        <label for="empName">Employee Name *</label>
+        <input id="name" type="text" formControlName="Name" pInputText />
+        <small class="form-field-error" *ngIf="EmployeeForm.get('Name')?.invalid && (EmployeeForm.get('Name')?.dirty || EmployeeForm.get('Name')?.touched)">
+         Employee Name is required.
+        </small>
       </div>
       <div class="p-field">
-        <label for="conNum">Contact Number</label>
-        <input type="text" formControlName="PhoneNumber" id="conNum" pInputTextarea required />
+        <label for="conNum">Contact Number *</label>
+        <input id="phoneNumber" type="text" formControlName="PhoneNumber" pInputText />
+        <small class="form-field-error" *ngIf="EmployeeForm.get('PhoneNumber')?.invalid && (EmployeeForm.get('PhoneNumber')?.dirty || EmployeeForm.get('PhoneNumber')?.touched)">
+          Invalid phone number format.
+        </small>
       </div>
 
       <div class="p-field">
-        <label for="dep">Department</label>
-        <p-dropdown [options]="DepartmentDropdown" [filter]="true" filterBy="name" formControlName="DepartmentId" placeholder="Select a Department" optionLabel="departmentName" optionValue="id" id="dep"
+        <label for="dep">Department *</label>
+        <p-dropdown [options]="DepartmentDropdown" [filter]="true" filterBy="departmentName" formControlName="DepartmentId" placeholder="Select a Department" optionLabel="departmentName" optionValue="id" id="dep"
           [showClear]="true"></p-dropdown>
+        <small class="form-field-error" *ngIf="EmployeeForm.get('DepartmentId')?.invalid && (EmployeeForm.get('DepartmentId')?.dirty || EmployeeForm.get('DepartmentId')?.touched)">
+            Department is required.
+        </small>
       </div>
 
       <div class="p-field">
-        <label for="loc">Location</label>
-        <p-dropdown [options]="locationDropdown" [filter]="true" filterBy="name" formControlName="LocationId" placeholder="Select a Location" id="loc" optionLabel="locationName" optionValue="id"
+        <label for="loc">Location *</label>
+        <p-dropdown [options]="locationDropdown" [filter]="true" filterBy="locationName" formControlName="LocationId" placeholder="Select a Location" id="loc" optionLabel="locationName" optionValue="id"
           [showClear]="true"></p-dropdown>
+        <small class="form-field-error" *ngIf="EmployeeForm.get('LocationId')?.invalid && (EmployeeForm.get('LocationId')?.dirty || EmployeeForm.get('LocationId')?.touched)">
+            Location is required.
+        </small>
       </div>
     </form>
 
@@ -103,7 +118,7 @@
 
   <ng-template pTemplate="footer">
     <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-danger" (click)="hideDialog()"></button>
-    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-success" (click)="saveEmployee()"></button>
+    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-success"  [disabled]="EmployeeForm.invalid" (click)="saveEmployee()"></button>
   </ng-template>
 </p-dialog>
 
@@ -111,39 +126,53 @@
 <p-dialog [(visible)]="EditEmployeeDialog" [style]="{width: '450px'}" header="Add Employee" [modal]="true"
   styleClass="p-fluid">
   <ng-template pTemplate="content">
-    <form [formGroup]="EmployeeForm">
-      <input type="text" pInputText [hidden]="true" formControlName="Id"  autofocus /> 
-      <div class="p-field">
-        <label for="empId">Employee Id</label>
-        <input type="text" formControlName="EmployeeId" pInputText id="empId" required autofocus />
-      </div>
-      <div class="p-field">
-        <label for="empName">Employee Name</label>
-        <input type="text" formControlName="Name" id="empName" pInputTextarea required />
-      </div>
-      <div class="p-field">
-        <label for="conNum">Contact Number</label>
-        <input type="text" formControlName="PhoneNumber" id="conNum" pInputTextarea required />
-      </div>
-
-      <div class="p-field">
-        <label for="dep">Department</label>
-        <p-dropdown [options]="DepartmentDropdown" [filter]="true" filterBy="name" formControlName="DepartmentId" placeholder="Select a Department" optionLabel="departmentName" optionValue="id" id="dep"
-          [showClear]="true"></p-dropdown>
-      </div>
-
-      <div class="p-field">
-        <label for="loc">Location</label>
-        <p-dropdown [options]="locationDropdown" [filter]="true" filterBy="name" formControlName="LocationId" placeholder="Select a Location" optionLabel="name" id="loc" optionLabel="locationName" optionValue="id"
-          [showClear]="true"></p-dropdown>
-      </div>
-    </form>
-
+      <form [formGroup]="EmployeeForm">
+        <input type="text" pInputText [hidden]="true" formControlName="Id" /> 
+        <div class="p-field">
+          <label for="empId">Employee Id *</label>
+          <input id="empId" type="text" formControlName="EmployeeId" pInputText />
+          <small class="form-field-error" *ngIf="EmployeeForm.get('EmployeeId')?.invalid && (EmployeeForm.get('EmployeeId')?.dirty || EmployeeForm.get('EmployeeId')?.touched)">
+            Employee Id is required.
+           </small>
+        </div>
+        <div class="p-field">
+          <label for="empName">Employee Name *</label>
+          <input id="name" type="text" formControlName="Name" pInputText />
+          <small class="form-field-error" *ngIf="EmployeeForm.get('Name')?.invalid && (EmployeeForm.get('Name')?.dirty || EmployeeForm.get('Name')?.touched)">
+           Employee Name is required.
+          </small>
+        </div>
+        <div class="p-field">
+          <label for="conNum">Contact Number *</label>
+          <input id="phoneNumber" type="text" formControlName="PhoneNumber" pInputText />
+          <small class="form-field-error" *ngIf="EmployeeForm.get('PhoneNumber')?.invalid && (EmployeeForm.get('PhoneNumber')?.dirty || EmployeeForm.get('PhoneNumber')?.touched)">
+            Invalid phone number format.
+          </small>
+        </div>
+  
+        <div class="p-field">
+          <label for="dep">Department *</label>
+          <p-dropdown [options]="DepartmentDropdown" [filter]="true" filterBy="departmentName" formControlName="DepartmentId" placeholder="Select a Department" optionLabel="departmentName" optionValue="id" id="dep"
+            [showClear]="true"></p-dropdown>
+          <small class="form-field-error" *ngIf="EmployeeForm.get('DepartmentId')?.invalid && (EmployeeForm.get('DepartmentId')?.dirty || EmployeeForm.get('DepartmentId')?.touched)">
+              Department is required.
+          </small>
+        </div>
+  
+        <div class="p-field">
+          <label for="loc">Location *</label>
+          <p-dropdown [options]="locationDropdown" [filter]="true" filterBy="locationName" formControlName="LocationId" placeholder="Select a Location" id="loc" optionLabel="locationName" optionValue="id"
+            [showClear]="true"></p-dropdown>
+          <small class="form-field-error" *ngIf="EmployeeForm.get('LocationId')?.invalid && (EmployeeForm.get('LocationId')?.dirty || EmployeeForm.get('LocationId')?.touched)">
+              Location is required.
+          </small>
+        </div>
+      </form>
   </ng-template>
 
   <ng-template pTemplate="footer">
     <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-danger" (click)="hideDialog()"></button>
-    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-success" (click)="saveEmployee()"></button>
+    <button pButton pRipple label="Save" [disabled]="EmployeeForm.invalid" icon="pi pi-check" class="p-button-success" (click)="saveEmployee()"></button>
   </ng-template>
 </p-dialog>
 

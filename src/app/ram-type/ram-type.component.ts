@@ -40,12 +40,15 @@ export class RamTypeComponent implements OnInit {
    this.getRamType();
   }
   openNew(){
+    this.ramTypeForm.reset();
     this.submitted = false;
     this.ramDialog = true;
   }
   hideDialog(){
     this.ramDialog = false;
     this.submitted = false;
+    this.ramTypeForm.reset();
+    this.ramDialogEdit = false;
   }
 
   saveRam(){

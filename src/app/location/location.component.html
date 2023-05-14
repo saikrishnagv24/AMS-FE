@@ -9,13 +9,16 @@
     </ng-template>
 </p-toolbar>
 
-<p-dialog header="Add Asset Type" [(visible)]="locationDialog" [style]="{width: '50vw'}" [baseZIndex]="10000">
+<p-dialog header="Add Location" [(visible)]="locationDialog" [style]="{width: '50vw'}" [baseZIndex]="10000">
     <ng-template pTemplate="content">
     <form [formGroup]="locationForm">     
             <input type="text" pInputText [hidden]="true" formControlName="id"  autofocus />       
             <div class="p-field">
                 <label for="location">Location</label>
-                <input type="text" pInputText id="location" formControlName="locationName"  required autofocus />
+                <input type="text" pInputText id="location" formControlName="locationName"  autofocus />
+                <small class="form-field-error" *ngIf="locationForm.get('locationName')?.invalid && (locationForm.get('locationName')?.dirty || locationForm.get('locationName')?.touched)">
+                  Location is required.
+                 </small>
             </div>
     </form>
     </ng-template>
@@ -25,13 +28,16 @@
     </ng-template>
 </p-dialog>
 
-<p-dialog header="Edit Asset Type" [(visible)]="locationEditDialog" [style]="{width: '50vw'}" [baseZIndex]="10000">
+<p-dialog header="Edit Location" [(visible)]="locationEditDialog" [style]="{width: '50vw'}" [baseZIndex]="10000">
     <ng-template pTemplate="content">
     <form [formGroup]="locationForm">     
             <input type="text" pInputText id="assettype" [hidden]="true" formControlName="id"  autofocus />       
             <div class="p-field">
-                <label for="assettype">Asset Type</label>
-                <input type="text" pInputText id="assettype" formControlName="locationName"  required autofocus />
+                <label for="assettype">Location</label>
+                <input type="text" pInputText id="assettype" formControlName="locationName" autofocus />
+                <small class="form-field-error" *ngIf="locationForm.get('locationName')?.invalid && (locationForm.get('locationName')?.dirty || locationForm.get('locationName')?.touched)">
+                  Location is required.
+                 </small>
             </div>
     </form>
     </ng-template>

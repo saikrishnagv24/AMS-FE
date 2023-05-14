@@ -64,11 +64,13 @@ export class FrequencyOfTestingComponent implements OnInit {
 
   openNew() {
     this.FrequencyOfTestingDialog = true;
-
+    this.FrequencyOfTestingForm.reset();
   }
 
   hideDialog() {
-    this.FrequencyOfTestingDialog = true;
+    this.FrequencyOfTestingDialog = false;
+    this.FrequencyOfTestingEditDialog = false;
+    this.FrequencyOfTestingForm.reset();
   }
 
   yesDelete() {

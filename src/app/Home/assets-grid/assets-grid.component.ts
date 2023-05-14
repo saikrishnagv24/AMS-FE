@@ -48,9 +48,9 @@ export class AssetsGridComponent implements OnInit {
       AssetId : ['',Validators.required],
       AssetCost : ['',Validators.required],
       AssetTypeId : ['',Validators.required],
-      CpuId : ['',Validators.required],
-      HddId : ['',Validators.required],
-      RamId : ['',Validators.required],
+      CpuId : [''],
+      HddId : [''],
+      RamId : [''],
       AssetPurchaseDate : ['',Validators.required],
       Remark : ['']
    })
@@ -171,11 +171,14 @@ export class AssetsGridComponent implements OnInit {
     }  
 
   openNew() {
+    this.AddAssetForm.reset();
     this.submitted = false;
     this.AddAssetDialog = true;
   } 
   hideDialog() {
+    this.AddAssetForm.reset();
     this.AddAssetDialog = false;
+    this.EditAssetDialog = false;
     this.submitted = false;
   } 
 

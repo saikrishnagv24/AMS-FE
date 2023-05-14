@@ -16,6 +16,7 @@ import { LocationService } from 'src/app/Services/location.service';
 })
 export class AssignAssetsComponent implements OnInit {
   submitted: boolean = false;
+  editAssignAssetDialog:boolean = false;
   assignAssetDialog: boolean = false;
   assignAssetForm!: FormGroup;
   AssetsData:any;
@@ -135,12 +136,14 @@ export class AssignAssetsComponent implements OnInit {
   openNew() {
     this.submitted = false;
     this.assignAssetDialog = true;
+    this.assignAssetForm.reset();
   }
 
   hideDialog() {
     this.assignAssetDialog = false;
     this.submitted = false;
     this.assignAssetForm.reset();
+    this.editAssignAssetDialog = false;
   }
 
   saveAssignAsset(){
@@ -164,7 +167,7 @@ export class AssignAssetsComponent implements OnInit {
         this.getAssingAsset(); 
         this.messageService.add({severity:'success', summary: 'Success', detail: 'Employee edited'});
       });
-      this.assignAssetDialog = false; 
+      this.editAssignAssetDialog = false; 
       }
       }
       this.assignAssetForm.reset();
@@ -172,7 +175,7 @@ export class AssignAssetsComponent implements OnInit {
   }
 
   EditAssignAsset(id:any){
-    this.assignAssetDialog=true;
+    this.editAssignAssetDialog=true;
     this.assignAssetsService.getEditAssingAssetDetial(id).subscribe((res)=>{
       this.AssignAssetEditData = res
       console.log("this.AssignAssetEditData",this.AssignAssetEditData)

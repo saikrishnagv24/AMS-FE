@@ -29,11 +29,14 @@ export class LocationComponent implements OnInit {
   }
 
   openNew() {
+    this.locationForm.reset();
     this.locationDialog = true;
   }
 
   hideDialog() {
-    this.locationDialog = true;
+    this.locationForm.reset();
+    this.locationDialog = false;
+    this.locationEditDialog = false;
   }
 
   saveLocation() {

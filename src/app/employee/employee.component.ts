@@ -26,7 +26,7 @@ export class EmployeeComponent implements OnInit {
       Id:[''],
       EmployeeId : ['',Validators.required],
       Name : ['',Validators.required],
-      PhoneNumber : ['',Validators.required],
+      PhoneNumber : ['',[Validators.required,Validators.pattern(/^\d{10}$/)]],
       DepartmentId : ['',Validators.required],
       LocationId : ['',Validators.required]
    })
@@ -125,9 +125,12 @@ export class EmployeeComponent implements OnInit {
   }
 
   openNew(){
+    this.EmployeeForm.reset();
     this.addEmployeeDialog=true;
   }
   hideDialog(){
+    this.EmployeeForm.reset();
     this.addEmployeeDialog=false;
+    this.EditEmployeeDialog=false;
   }
 }

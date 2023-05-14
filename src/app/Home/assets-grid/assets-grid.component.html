@@ -80,40 +80,61 @@
     <form [formGroup]="AddAssetForm">     
             <input type="text" pInputText id="Id" [hidden]="true" formControlName="Id" />       
             <div class="p-field">
-                <label for="AddAssetId">Asset Id</label>
-                <input type="text" pInputText id="AddAssetId" formControlName="AssetId"  required autofocus />
+                <label for="AddAssetId">Asset Id *</label>
+                <input type="text" pInputText id="AddAssetId" formControlName="AssetId" autofocus />
+                <small class="form-field-error" *ngIf="AddAssetForm.get('AssetId')?.invalid && (AddAssetForm.get('AssetId')?.dirty || AddAssetForm.get('AssetId')?.touched)">
+                  Asset id is required.
+                </small>
             </div>
             <div class="p-field">
-                <label for="AddAssetCost">Asset Cost</label>
-                <input type="text" pInputText id="AddAssetCost" formControlName="AssetCost"  required />
+                <label for="AddAssetCost">Asset Cost *</label>
+                <input type="text" pInputText id="AddAssetCost" formControlName="AssetCost" />
+                <small class="form-field-error" *ngIf="AddAssetForm.get('AssetCost')?.invalid && (AddAssetForm.get('AssetCost')?.dirty || AddAssetForm.get('AssetCost')?.touched)">
+                  Asset Cost is required.
+                   </small>
             </div>
             <div class="p-field">
-                <label for="AssetType">Type Of Asset</label>
-                <p-dropdown [options]="AssetTypeDropDown" [filter]="true" filterBy="name" formControlName="AssetTypeId" placeholder="Select type of asset" optionLabel="assetTypeName" optionValue="id" 
+                <label for="AssetType">Type Of Asset *</label>
+                <p-dropdown [options]="AssetTypeDropDown" [filter]="true" filterBy="assetTypeName" formControlName="AssetTypeId" placeholder="Select type of asset" optionLabel="assetTypeName" optionValue="id" 
                 [showClear]="true"></p-dropdown>
+                <small class="form-field-error" *ngIf="AddAssetForm.get('AssetTypeId')?.invalid && (AddAssetForm.get('AssetTypeId')?.dirty || AddAssetForm.get('AssetTypeId')?.touched)">
+                  Type Of Asset is required.
+                   </small>
             </div>
             <div class="p-field">
               <label for="cpuType">Cpu Type</label>
-              <p-dropdown [options]="CpuTypeDropDown" [filter]="true" filterBy="name" formControlName="CpuId" placeholder="Select type of CPU" optionLabel="cpuTypeName" optionValue="id" 
+              <p-dropdown [options]="CpuTypeDropDown" [filter]="true" filterBy="cpuTypeName" formControlName="CpuId" placeholder="Select type of CPU" optionLabel="cpuTypeName" optionValue="id" 
               [showClear]="true"></p-dropdown>
+              <small class="form-field-error" *ngIf="AddAssetForm.get('CpuId')?.invalid && (AddAssetForm.get('CpuId')?.dirty || AddAssetForm.get('CpuId')?.touched)">
+                Cpu Type is required.
+                 </small>
             </div>
             <div class="p-field">
               <label for="AssetType">HDD Type</label>
-              <p-dropdown [options]="HddDropDown" [filter]="true" filterBy="name" formControlName="HddId" placeholder="Select type of HDD" optionLabel="harddiscTypeName" optionValue="id" 
+              <p-dropdown [options]="HddDropDown" [filter]="true" filterBy="harddiscTypeName" formControlName="HddId" placeholder="Select type of HDD" optionLabel="harddiscTypeName" optionValue="id" 
               [showClear]="true"></p-dropdown>
+              <small class="form-field-error" *ngIf="AddAssetForm.get('HddId')?.invalid && (AddAssetForm.get('HddId')?.dirty || AddAssetForm.get('HddId')?.touched)">
+                HDD Type is required.
+                 </small>
             </div>
             <div class="p-field">
               <label for="AssetType">RAM Type</label>
               <p-dropdown [options]="RamDropDown" [filter]="true" filterBy="name" formControlName="RamId" placeholder="Select type of RAM" optionLabel="ramTypeName" optionValue="id" 
               [showClear]="true"></p-dropdown>
+              <small class="form-field-error" *ngIf="AddAssetForm.get('RamId')?.invalid && (AddAssetForm.get('RamId')?.dirty || AddAssetForm.get('RamId')?.touched)">
+                RAM Type is required.
+                 </small>
             </div>
             <div class="p-field">
-                <label for="date">Purchase Date</label>
+                <label for="date">Purchase Date *</label>
                 <p-calendar id="date" formControlName="AssetPurchaseDate" dateFormat="dd.mm.yy"></p-calendar>
+                <small class="form-field-error" *ngIf="AddAssetForm.get('AssetPurchaseDate')?.invalid && (AddAssetForm.get('AssetPurchaseDate')?.dirty || AddAssetForm.get('AssetPurchaseDate')?.touched)">
+                  Purchase Date is required.
+                   </small>
             </div>
             <div class="p-field">
                 <label for="Remark">Remark</label>
-                <textarea id="Remark" pInputTextarea required rows="3" cols="20"  formControlName="Remark"></textarea>
+                <textarea id="Remark" pInputTextarea rows="3" cols="20"  formControlName="Remark"></textarea>
             </div>
     </form>
     </ng-template>
@@ -127,45 +148,66 @@
 
 <p-dialog [(visible)]="EditAssetDialog" [style]="{width: '450px'}" header="Add Asset" [modal]="true" styleClass="p-fluid">
   <ng-template pTemplate="content">
-  <form [formGroup]="AddAssetForm">     
-          <input type="text" pInputText id="Id" [hidden]="true" formControlName="Id" />       
-          <div class="p-field">
-              <label for="AddAssetId">Asset Id</label>
-              <input type="text" pInputText id="AddAssetId" formControlName="AssetId"  required autofocus />
-          </div>
-          <div class="p-field">
-              <label for="AddAssetCost">Asset Cost</label>
-              <input type="text" pInputText id="AddAssetCost" formControlName="AssetCost"  required />
-          </div>
-          <div class="p-field">
-              <label for="AssetType">Type Of Asset</label>
-              <p-dropdown [options]="AssetTypeDropDown" [filter]="true" filterBy="name" formControlName="AssetTypeId" placeholder="Select type of asset" optionLabel="assetTypeName" optionValue="id" 
-              [showClear]="true"></p-dropdown>
-          </div>
-          <div class="p-field">
-            <label for="cpuType">Cpu Type</label>
-            <p-dropdown [options]="CpuTypeDropDown" [filter]="true" filterBy="name" formControlName="CpuId" placeholder="Select type of CPU" optionLabel="cpuTypeName" optionValue="id" 
-            [showClear]="true"></p-dropdown>
-          </div>
-          <div class="p-field">
-            <label for="AssetType">HDD Type</label>
-            <p-dropdown [options]="HddDropDown" [filter]="true" filterBy="name" formControlName="HddId" placeholder="Select type of HDD" optionLabel="harddiscTypeName" optionValue="id" 
-            [showClear]="true"></p-dropdown>
-          </div>
-          <div class="p-field">
-            <label for="AssetType">RAM Type</label>
-            <p-dropdown [options]="RamDropDown" [filter]="true" filterBy="name" formControlName="RamId" placeholder="Select type of RAM" optionLabel="ramTypeName" optionValue="id" 
-            [showClear]="true"></p-dropdown>
-          </div>
-          <div class="p-field">
-              <label for="date">Purchase Date</label>
-              <p-calendar id="date" formControlName="AssetPurchaseDate" dateFormat="dd.mm.yy"></p-calendar>
-          </div>
-          <div class="p-field">
-              <label for="Remark">Remark</label>
-              <textarea id="Remark" pInputTextarea required rows="3" cols="20"  formControlName="Remark"></textarea>
-          </div>
-  </form>
+    <form [formGroup]="AddAssetForm">     
+      <input type="text" pInputText id="Id" [hidden]="true" formControlName="Id" />       
+      <div class="p-field">
+          <label for="AddAssetId">Asset Id *</label>
+          <input type="text" pInputText id="AddAssetId" formControlName="AssetId" autofocus />
+          <small class="form-field-error" *ngIf="AddAssetForm.get('AssetId')?.invalid && (AddAssetForm.get('AssetId')?.dirty || AddAssetForm.get('AssetId')?.touched)">
+            Asset id is required.
+          </small>
+      </div>
+      <div class="p-field">
+          <label for="AddAssetCost">Asset Cost *</label>
+          <input type="text" pInputText id="AddAssetCost" formControlName="AssetCost" />
+          <small class="form-field-error" *ngIf="AddAssetForm.get('AssetCost')?.invalid && (AddAssetForm.get('AssetCost')?.dirty || AddAssetForm.get('AssetCost')?.touched)">
+            Asset Cost is required.
+             </small>
+      </div>
+      <div class="p-field">
+          <label for="AssetType">Type Of Asset *</label>
+          <p-dropdown [options]="AssetTypeDropDown" [filter]="true" filterBy="assetTypeName" formControlName="AssetTypeId" placeholder="Select type of asset" optionLabel="assetTypeName" optionValue="id" 
+          [showClear]="true"></p-dropdown>
+          <small class="form-field-error" *ngIf="AddAssetForm.get('AssetTypeId')?.invalid && (AddAssetForm.get('AssetTypeId')?.dirty || AddAssetForm.get('AssetTypeId')?.touched)">
+            Type Of Asset is required.
+             </small>
+      </div>
+      <div class="p-field">
+        <label for="cpuType">Cpu Type</label>
+        <p-dropdown [options]="CpuTypeDropDown" [filter]="true" filterBy="cpuTypeName" formControlName="CpuId" placeholder="Select type of CPU" optionLabel="cpuTypeName" optionValue="id" 
+        [showClear]="true"></p-dropdown>
+        <!-- <small class="form-field-error" *ngIf="AddAssetForm.get('CpuId')?.invalid && (AddAssetForm.get('CpuId')?.dirty || AddAssetForm.get('CpuId')?.touched)">
+          Cpu Type is required.
+           </small> -->
+      </div>
+      <div class="p-field">
+        <label for="AssetType">HDD Type</label>
+        <p-dropdown [options]="HddDropDown" [filter]="true" filterBy="harddiscTypeName" formControlName="HddId" placeholder="Select type of HDD" optionLabel="harddiscTypeName" optionValue="id" 
+        [showClear]="true"></p-dropdown>
+        <!-- <small class="form-field-error" *ngIf="AddAssetForm.get('HddId')?.invalid && (AddAssetForm.get('HddId')?.dirty || AddAssetForm.get('HddId')?.touched)">
+          HDD Type is required.
+           </small> -->
+      </div>
+      <div class="p-field">
+        <label for="AssetType">RAM Type</label>
+        <p-dropdown [options]="RamDropDown" [filter]="true" filterBy="name" formControlName="RamId" placeholder="Select type of RAM" optionLabel="ramTypeName" optionValue="id" 
+        [showClear]="true"></p-dropdown>
+        <!-- <small class="form-field-error" *ngIf="AddAssetForm.get('RamId')?.invalid && (AddAssetForm.get('RamId')?.dirty || AddAssetForm.get('RamId')?.touched)">
+          RAM Type is required.
+           </small> -->
+      </div>
+      <div class="p-field">
+          <label for="date">Purchase Date *</label>
+          <p-calendar id="date" formControlName="AssetPurchaseDate" dateFormat="dd.mm.yy"></p-calendar>
+          <small class="form-field-error" *ngIf="AddAssetForm.get('AssetPurchaseDate')?.invalid && (AddAssetForm.get('AssetPurchaseDate')?.dirty || AddAssetForm.get('AssetPurchaseDate')?.touched)">
+            Purchase Date is required.
+             </small>
+      </div>
+      <div class="p-field">
+          <label for="Remark">Remark</label>
+          <textarea id="Remark" pInputTextarea rows="3" cols="20"  formControlName="Remark"></textarea>
+      </div>
+</form>
   </ng-template>
   
   <ng-template pTemplate="footer">

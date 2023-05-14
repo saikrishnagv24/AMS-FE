@@ -82,6 +82,9 @@
             <div class="p-field">
                 <label for="assettype">Asset Type</label>
                 <input type="text" pInputText id="assettype" formControlName="AssetTypeName"  required autofocus />
+                <small class="form-field-error" *ngIf="assetTypeForm.get('AssetTypeName')?.invalid && (assetTypeForm.get('AssetTypeName')?.dirty || assetTypeForm.get('AssetTypeName')?.touched)">
+                  Asset type is required.
+                 </small>
             </div>
     </form>
     </ng-template>
@@ -97,7 +100,10 @@
             <input type="text" pInputText id="assettype" [hidden]="true" formControlName="Id" />       
             <div class="p-field">
                 <label for="assettype">Asset Type</label>
-                <input type="text" pInputText id="assettype" formControlName="AssetTypeName"  required autofocus />
+                <input type="text" pInputText id="assettype" formControlName="AssetTypeName" autofocus />
+                <small class="form-field-error" *ngIf="assetTypeForm.get('AssetTypeName')?.invalid && (assetTypeForm.get('AssetTypeName')?.dirty || assetTypeForm.get('AssetTypeName')?.touched)">
+                  Asset type is required.
+                 </small>
             </div>
     </form>
     </ng-template>

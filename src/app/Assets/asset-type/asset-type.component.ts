@@ -51,7 +51,7 @@ export class AssetTypeComponent implements OnInit {
   }
   
   openNew() {
-   
+   this.assetTypeForm.reset();
     this.submitted = false;
     this.assetDialog = true;
   }
@@ -59,6 +59,7 @@ export class AssetTypeComponent implements OnInit {
   hideDialog() {
     this.assetDialog = false;
     this.submitted = false;
+    this.assetDialogEdit = false;
     this.assetTypeForm.reset();
   }
 

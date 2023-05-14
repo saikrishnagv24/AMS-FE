@@ -82,6 +82,9 @@
             <div class="p-field">
                 <label for="cputype">Ram Type</label>
                 <input type="text" pInputText id="ramtype" formControlName="RamTypeName"  required autofocus />
+                <small class="form-field-error" *ngIf="ramTypeForm.get('RamTypeName')?.invalid && (ramTypeForm.get('RamTypeName')?.dirty || ramTypeForm.get('RamTypeName')?.touched)">
+                  Ram Type is required.
+                 </small>
             </div>
     </form>
     </ng-template>
@@ -98,6 +101,9 @@
           <div class="p-field">
               <label for="cputype">Ram Type</label>
               <input type="text" pInputText id="ramtype" formControlName="RamTypeName"  required autofocus />
+              <small class="form-field-error" *ngIf="ramTypeForm.get('RamTypeName')?.invalid && (ramTypeForm.get('RamTypeName')?.dirty || ramTypeForm.get('RamTypeName')?.touched)">
+                Ram Type is required.
+                 </small>
           </div>
   </form>
   </ng-template>

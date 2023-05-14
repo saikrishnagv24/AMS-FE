@@ -46,7 +46,7 @@ export class DepartmentComponent implements OnInit {
   }
  
   openNew() {
-   
+    this.departmentTypeForm.reset();
     this.submitted = false;
     this.departmentDialog = true;
   }
@@ -54,6 +54,7 @@ export class DepartmentComponent implements OnInit {
   hideDialog() {
     this.departmentDialog = false;
     this.submitted = false;
+    this.departmentDialogEdit = false;
     this.departmentTypeForm.reset();
   }
 

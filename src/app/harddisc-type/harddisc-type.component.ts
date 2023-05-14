@@ -39,6 +39,7 @@ export class HarddiscTypeComponent implements OnInit {
   }
 
   openNew() {
+    this.harddiscTypeForm.reset();
     this.submitted = false;
     this.harddiscDialog = true;
   }
@@ -46,7 +47,9 @@ export class HarddiscTypeComponent implements OnInit {
   hideDialog() {
     this.harddiscDialog = false;
     this.submitted = false;
-}
+    this.editHarddiscDialog = false;
+    this.harddiscTypeForm.reset();
+  }
 
 
 

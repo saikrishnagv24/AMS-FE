@@ -81,7 +81,10 @@
             <input type="text" pInputText id="Id" [hidden]="true" formControlName="Id"  autofocus />       
             <div class="p-field">
                 <label for="cputype">CPU Type</label>
-                <input type="text" pInputText id="cputype" formControlName="CpuTypeName"  required autofocus />
+                <input type="text" pInputText id="cputype" formControlName="CpuTypeName" autofocus />
+                <small class="form-field-error" *ngIf="cpuTypeForm.get('CpuTypeName')?.invalid && (cpuTypeForm.get('CpuTypeName')?.dirty || cpuTypeForm.get('CpuTypeName')?.touched)">
+                  CPU type is required.
+                 </small>
             </div>
     </form>
     </ng-template>
@@ -98,7 +101,10 @@
           <input type="text" pInputText id="Id" [hidden]="true" formControlName="Id"  autofocus />       
           <div class="p-field">
               <label for="cputype">CPU Type</label>
-              <input type="text" pInputText id="cputype" formControlName="CpuTypeName"  required autofocus />
+              <input type="text" pInputText id="cputype" formControlName="CpuTypeName" autofocus />
+              <small class="form-field-error" *ngIf="cpuTypeForm.get('CpuTypeName')?.invalid && (cpuTypeForm.get('CpuTypeName')?.dirty || cpuTypeForm.get('CpuTypeName')?.touched)">
+                CPU type is required.
+               </small>
           </div>
   </form>
   </ng-template>

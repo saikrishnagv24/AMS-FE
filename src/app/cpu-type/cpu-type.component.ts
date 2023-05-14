@@ -45,7 +45,7 @@ export class CpuTypeComponent implements OnInit {
   }
 
   openNew() {
-   
+   this.cpuTypeForm.reset();
     this.submitted = false;
     this.cpuDialog = true;
   }
@@ -53,6 +53,7 @@ export class CpuTypeComponent implements OnInit {
   hideDialog() {
     this.cpuDialog = false;
     this.submitted = false;
+    this.cpuDialogEdit = false;
     this.cpuTypeForm.reset();
 }
 

@@ -16,6 +16,9 @@
             <div class="p-field">
                 <label for="feq">Frequency of Testing</label>
                 <input type="text" pInputText id="feq" formControlName="FrequencyTesting"  required autofocus />
+                <small class="form-field-error" *ngIf="FrequencyOfTestingForm.get('FrequencyTesting')?.invalid && (FrequencyOfTestingForm.get('FrequencyTesting')?.dirty || FrequencyOfTestingForm.get('FrequencyTesting')?.touched)">
+                  Frequency of Testing is required.
+                   </small>
             </div>
     </form>
     </ng-template>
@@ -32,6 +35,9 @@
             <div class="p-field">
                 <label for="freqtype">Frequency of testing</label>
                 <input type="text" pInputText id="assettype" formControlName="FrequencyTesting"  required autofocus />
+                <small class="form-field-error" *ngIf="FrequencyOfTestingForm.get('FrequencyTesting')?.invalid && (FrequencyOfTestingForm.get('FrequencyTesting')?.dirty || FrequencyOfTestingForm.get('FrequencyTesting')?.touched)">
+                  Frequency of Testing is required.
+                   </small>
             </div>
     </form>
     </ng-template>

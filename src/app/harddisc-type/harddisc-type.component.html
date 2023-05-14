@@ -81,6 +81,9 @@
             <div class="p-field">
                 <label for="harddisctype">Harddisc Type</label>
                 <input type="text" pInputText id="harddisctype" formControlName="HarddiscTypeName"  required autofocus />
+                <small class="form-field-error" *ngIf="harddiscTypeForm.get('HarddiscTypeName')?.invalid && (harddiscTypeForm.get('HarddiscTypeName')?.dirty || harddiscTypeForm.get('HarddiscTypeName')?.touched)">
+                  Harddisc Type is required.
+                   </small>
             </div>
     </form>
     </ng-template>
@@ -98,6 +101,9 @@
             <div class="p-field">
                 <label for="harddisctype">Harddisc Type</label>
                 <input type="text" pInputText id="harddisctype" formControlName="HarddiscTypeName"  required autofocus />
+                <small class="form-field-error" *ngIf="harddiscTypeForm.get('HarddiscTypeName')?.invalid && (harddiscTypeForm.get('HarddiscTypeName')?.dirty || harddiscTypeForm.get('HarddiscTypeName')?.touched)">
+                  Harddisc Type is required.
+                   </small>
             </div>
     </form>
     </ng-template>
